@@ -3,6 +3,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import AboutPage from './AboutPage.js';
 
 function NavBar() {
     return (
@@ -26,7 +27,7 @@ function NavBar() {
                     }}>
                     RECYCLERUSH
                 </Typography>
-                <Button variant="text" color="inherit"
+                <Button variant="text" color="inherit" onClick={() => AboutPage.js}
                     sx={{
                         color: '#062905',
                         textAlign: 'center',

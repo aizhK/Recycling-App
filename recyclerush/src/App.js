@@ -2,6 +2,8 @@ import './App.css';
 import NavBar from './components/NavBar';
 import IntroPage from './components/IntroPage';
 import LearnMore from './components/LearnMore';
+import AboutPage from './components/AboutPage';
+import CoreValues from './components/CoreValues';
 
 function App() {
   return (
@@ -10,6 +12,8 @@ function App() {
         <NavBar />
         <IntroPage />
         <LearnMore />
+        <AboutPage />
+        <CoreValues />
       </header>
     </div>
   );
