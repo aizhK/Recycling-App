@@ -1,6 +1,6 @@
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Box, Typography } from '@mui/material';
-import recycleAbout from '../assets/recycleAbout.png';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import reuse from '../assets/reuse.png';
 
 const theme = createTheme({
   palette: {
@@ -23,36 +23,40 @@ const theme = createTheme({
   },
 });
 
-
-const AboutPage = () => {
+const Badges = () => {
   return (
     <ThemeProvider theme={theme}>
       <Box
         sx={{
-          backgroundColor: 'background.default',
+          width: '100%',
           height: '633px',
-          width: '80%',
-          margin: 'auto',
+          backgroundColor: 'background.default',
           position: 'relative',
           marginTop: '150px',
-          display: 'flex',
-          alignItems: 'center',
+          overflow: 'hidden',
         }}
       >
-        <img
-          className="recycleAbout"
-          src={recycleAbout}
-          alt="recycle about"
-          style={{
-            float: 'left',
-            width: '389px',
-            height: '390px',
-            objectFit: 'cover',
-            marginRight: '20px',
+        <Box
+          sx={{
+            width: '80%',
+            margin: 'auto',
+            position: 'relative',
+            zIndex: 1,
+            paddingTop: '90px',
           }}
-        />
-
-        <Box>
+        >
+          <img
+            className="reuse"
+            src={reuse}
+            alt="reuse"
+            style={{
+              float: 'right',
+              marginLeft: '20px',
+              marginBottom: '20px',
+              width: '359px',
+              height: '360px',
+            }}
+          />
           <Typography
             variant="h1"
             component="h1"
@@ -63,7 +67,7 @@ const AboutPage = () => {
               marginBottom: '10px',
             }}
           >
-            About RecycleRush
+            Earn Badges, Unlock Rewards
           </Typography>
           <Typography
             variant="h3"
@@ -76,7 +80,7 @@ const AboutPage = () => {
               marginBottom: '30px',
             }}
           >
-            Empowering a Sustainable Future
+            Celebrate your recycling achievements
           </Typography>
           <Typography
             variant="body1"
@@ -89,7 +93,7 @@ const AboutPage = () => {
               whiteSpace: 'pre-line',
             }}
           >
-            RecycleRush is a gamified web app designed for students like you who are passionate about creating a sustainable future. Our mission is to inspire and motivate you to take action towards a greener world through the power of recycling. Discover a world where recycling becomes an exciting adventure filled with rewards, challenges, and friendly competition.
+            Celebrate your recycling accomplishments with RecycleRush! As you embark on your sustainable journey, you'll have the chance to earn badges and unlock exciting rewards. Each badge represents a significant milestone, showcasing your dedication to making a positive impact on the environment.
           </Typography>
         </Box>
       </Box>
@@ -97,4 +101,4 @@ const AboutPage = () => {
   );
 };
 
-export default AboutPage;
+export default Badges;

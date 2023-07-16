@@ -42,6 +42,7 @@ const IntroPage = () => {
           src={recyclecan}
           alt="recycle can"
           style={{
+            float: 'right',
             position: 'absolute',
             top: 0,
             left: '60%',

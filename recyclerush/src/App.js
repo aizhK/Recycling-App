@@ -4,6 +4,8 @@ import IntroPage from './components/IntroPage';
 import LearnMore from './components/LearnMore';
 import AboutPage from './components/AboutPage';
 import CoreValues from './components/CoreValues';
+import Badges from './components/Badges';
+import Leaderboard from './components/Leaderboard';
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
         <LearnMore />
         <AboutPage />
         <CoreValues />
+        <Badges />
+        <Leaderboard />
       </header>
     </div>
   );

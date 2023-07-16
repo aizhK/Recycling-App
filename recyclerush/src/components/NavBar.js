@@ -11,6 +11,9 @@ function NavBar() {
             flexGrow: 1, 
             width: '100%',
             height: 'inherit',
+            position: 'sticky',
+            top: 0,
+            zIndex: 999,
          }}>
         <AppBar position="static"
             sx={{
