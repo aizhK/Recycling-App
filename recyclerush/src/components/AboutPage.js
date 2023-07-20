@@ -34,7 +34,7 @@ const AboutPage = () => {
           width: '80%',
           margin: 'auto',
           position: 'relative',
-          marginTop: '150px',
+          marginTop: '80px',
           display: 'flex',
           alignItems: 'center',
         }}

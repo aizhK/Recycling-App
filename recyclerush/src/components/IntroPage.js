@@ -34,7 +34,7 @@ const IntroPage = () => {
           width: '80%',
           margin: 'auto',
           position: 'relative',
-          marginTop: '200px',
+          marginTop: '170px',
         }}
       >
         <img

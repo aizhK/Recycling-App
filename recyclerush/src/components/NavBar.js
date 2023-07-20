@@ -3,7 +3,6 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import AboutPage from './AboutPage.js';
 
 function NavBar() {
     return (
@@ -30,7 +29,7 @@ function NavBar() {
                     }}>
                     RECYCLERUSH
                 </Typography>
-                <Button variant="text" color="inherit" onClick={() => AboutPage.js}
+                <Button variant="text" color="inherit"
                     sx={{
                         color: '#062905',
                         textAlign: 'center',
@@ -66,7 +65,7 @@ function NavBar() {
                         letterSpacing: '-0.3px',
                         textTransform: 'none',
                     }}>Leaderboard</Button>
-                <Button color="inherit" 
+                <Button color="inherit"
                     sx={{
                         backgroundColor: '#A8C1BD',
                         color: 'white',

@@ -33,7 +33,7 @@ const Leaderboard = () => {
           height: '633px',
           backgroundColor: 'background.secondary',
           position: 'relative',
-          marginTop: '150px',
+          marginTop: '80px',
         }}
       >
         <Box
