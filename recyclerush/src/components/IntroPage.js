@@ -1,40 +1,41 @@
-import { Box, Button, Typography } from '@mui/material';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import recyclecan from '../assets/recycle-can.png';
-
+import { Box, Button, Typography } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import recyclecan from "../assets/recycle-can.png";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#C7683D',
+      main: "#C7683D",
     },
     secondary: {
-      main: '#182D27',
+      main: "#182D27",
     },
     background: {
-      default: '#F6F3E7',
+      default: "#F6F3E7",
     },
     smalltext: {
-      main: '#5E5E5E',
-      other: '#000',
+      main: "#5E5E5E",
+      other: "#000",
     },
     blackIcons: {
-      main: '#000',
+      main: "#000",
     },
   },
 });
 
-const IntroPage = () => {
+const IntroPage = ({ onLearnMore }) => {
   return (
     <ThemeProvider theme={theme}>
       <Box
         sx={{
-          backgroundColor: 'background.default',
-          height: '633px',
-          width: '80%',
-          margin: 'auto',
-          position: 'relative',
-          marginTop: '170px',
+          backgroundColor: "background.default",
+          height: "633px",
+          width: "80%",
+          margin: "auto",
+          position: "relative",
+          marginTop: "170px",
         }}
       >
         <img
@@ -42,22 +43,22 @@ const IntroPage = () => {
           src={recyclecan}
           alt="recycle can"
           style={{
-            float: 'right',
-            position: 'absolute',
+            float: "right",
+            position: "absolute",
             top: 0,
-            left: '60%',
-            width: '389px',
-            height: '390px',
+            left: "60%",
+            width: "389px",
+            height: "390px",
           }}
         />
         <Typography
           variant="h1"
           component="h1"
           sx={{
-            fontSize: '70px',
-            fontWeight: '600',
-            color: 'primary.main',
-            marginBottom: '10px',
+            fontSize: "70px",
+            fontWeight: "600",
+            color: "primary.main",
+            marginBottom: "10px",
           }}
         >
           Recycling
@@ -66,11 +67,11 @@ const IntroPage = () => {
           variant="h3"
           component="h3"
           sx={{
-            fontSize: '60px',
-            fontWeight: '500',
-            color: 'secondary.main',
-            textTransform: 'capitalize',
-            marginBottom: '30px',
+            fontSize: "60px",
+            fontWeight: "500",
+            color: "secondary.main",
+            textTransform: "capitalize",
+            marginBottom: "30px",
           }}
         >
           Can Be Fun And Easy
@@ -79,10 +80,10 @@ const IntroPage = () => {
           variant="body1"
           component="p"
           sx={{
-            fontSize: '20px',
-            fontWeight: '500',
-            color: 'smalltext.main',
-            marginBottom: '5px',
+            fontSize: "20px",
+            fontWeight: "500",
+            color: "smalltext.main",
+            marginBottom: "5px",
           }}
         >
           Recycle, Compete, Win!
@@ -91,47 +92,50 @@ const IntroPage = () => {
           variant="body1"
           component="p"
           sx={{
-            fontSize: '20px',
-            fontWeight: '500',
-            color: 'smalltext.main',
-            marginBottom: '5px',
-            whiteSpace: 'pre-line',
+            fontSize: "20px",
+            fontWeight: "500",
+            color: "smalltext.main",
+            marginBottom: "5px",
+            whiteSpace: "pre-line",
           }}
         >
-          Level up your recycling game, earn rewards, and make a{'\n'}
+          Level up your recycling game, earn rewards, and make a{"\n"}
           planet-saving impact!
         </Typography>
         <Button
+          component={Link}
+          to="/signup"
           variant="contained"
           sx={{
-            backgroundColor: 'primary.main',
-            color: 'white',
-            borderRadius: '5px',
-            width: '189px',
-            height: '61px',
-            boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
-            marginTop: '40px',
-            fontSize: '18px',
-            fontWeight: '500',
-            textTransform: 'uppercase',
-            marginRight: '40px',
+            backgroundColor: "primary.main",
+            color: "white",
+            borderRadius: "5px",
+            width: "189px",
+            height: "61px",
+            boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
+            marginTop: "40px",
+            fontSize: "18px",
+            fontWeight: "500",
+            textTransform: "uppercase",
+            marginRight: "40px",
           }}
         >
           Sign Up Now
         </Button>
         <Button
+          onClick={onLearnMore}
           variant="outlined"
           sx={{
-            borderColor: 'primary.main',
-            color: 'primary.main',
-            borderRadius: '5px',
-            width: '189px',
-            height: '61px',
-            boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
-            marginTop: '40px',
-            fontSize: '18px',
-            fontWeight: '500',
-            textTransform: 'uppercase',
+            borderColor: "primary.main",
+            color: "primary.main",
+            borderRadius: "5px",
+            width: "189px",
+            height: "61px",
+            boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
+            marginTop: "40px",
+            fontSize: "18px",
+            fontWeight: "500",
+            textTransform: "uppercase",
           }}
         >
           Learn More
@@ -139,6 +143,10 @@ const IntroPage = () => {
       </Box>
     </ThemeProvider>
   );
+};
+
+IntroPage.propTypes = {
+  onLearnMore: PropTypes.func.isRequired,
 };
 
 export default IntroPage;
