@@ -1,6 +1,6 @@
 import { Box, IconButton, Button, Typography, TextField } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import LoginIcon from '@mui/icons-material/LoginOutlined';
+import AccountIcon from '@mui/icons-material/AccountCircleOutlined';
 import userprofile from '../assets/userprofile.png';
 import secure from '../assets/secure.png';
 
@@ -19,7 +19,7 @@ const theme = createTheme({
   },
 });
 
-const SignUp = () => {
+const Login = () => {
   return (
     <ThemeProvider theme={theme}>
       <Box
@@ -72,7 +72,7 @@ const SignUp = () => {
             sx={{
               backgroundColor: 'background.secondary',
               width: '585px',
-              height: '809px',
+              height: '714px',
               flexShrink: '0',
               borderRadius: '50px',
               boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
@@ -88,7 +88,7 @@ const SignUp = () => {
                 marginTop: '50px',
               }}
             >
-              Get Started
+              Login
             </Typography>
             <Box
               sx={{
@@ -104,41 +104,30 @@ const SignUp = () => {
                   marginLeft: '25%',
                 }}
               >
-                Already Have An Account?
+                Don't Have An Account?
               </Typography>
               <IconButton
-                aria-label="login"
+                aria-label="create"
                 sx={{
                   color: 'text.third',
                   size: 'large',
                 }}
               >
-                <LoginIcon />
+                <AccountIcon />
               
                 <Typography
                     sx={{
                     color: 'text.third',
                     fontSize: '16px',
                     textAlign: 'left',
-                    marginTop: '4%',
-                    marginLeft: '13%',
+                    marginTop: '2%',
                     }}
                 >
-                    Login
+                    Sign Up
                 </Typography>
             </IconButton>
             </Box>
             <Box>
-              <TextField
-                label="First Name"
-                variant="outlined"
-                sx={{
-                  width: '300px',
-                  marginLeft: '25%',
-                  marginTop: '10%',
-                  backgroundColor: 'background.last',
-                }}
-              />
               <TextField
                 label="Email Address"
                 variant="outlined"
@@ -159,16 +148,24 @@ const SignUp = () => {
                   backgroundColor: 'background.last',
                 }}
               />
-              <TextField
-                label="Confirm Password"
-                variant="outlined"
+              <Button variant="text"
                 sx={{
-                  width: '300px',
-                  marginLeft: '25%',
-                  marginTop: '7%',
-                  backgroundColor: 'background.last',
+                    float: 'right',
+                    marginTop: '5%',
+                    marginRight: '22%'
                 }}
-              />
+              >
+                <Typography
+                    sx={{
+                        fontSize: '16px',
+                        color: '#626161',
+                        fontWeight: '700',
+                        textTransform: 'none'
+                    }}
+                >
+                    Forgot Password?
+                </Typography>
+              </Button>
               <Button
                 sx={{
                   backgroundColor: 'rgba(237, 233, 218, 0.70)',
@@ -189,7 +186,7 @@ const SignUp = () => {
                     textTransform: 'none',
                   }}
                 >
-                  Register
+                  Login
                 </Typography>
               </Button>
             </Box>
@@ -200,4 +197,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Login;

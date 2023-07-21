@@ -6,7 +6,7 @@ import AboutPage from './components/AboutPage';
 import CoreValues from './components/CoreValues';
 import Badges from './components/Badges';
 import Leaderboard from './components/Leaderboard';
-import SignUp from './components/SignUp';
+import ForgotPassword from './components/ForgotPassword';
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
         <CoreValues />
         <Badges />
         <Leaderboard />
-        <SignUp />
+        <ForgotPassword />
       </header>
     </div>
   );
