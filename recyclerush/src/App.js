@@ -10,6 +10,7 @@ import Badges from "./components/Badges";
 import Leaderboard from "./components/Leaderboard";
 import ForgotPassword from "./components/ForgotPassword";
 import SignUp from "./components/SignUp";
+import Login from "./components/Login";
 
 function App() {
   const learnMoreRef = createRef();
@@ -60,7 +61,6 @@ function App() {
                         <Badges />
                         <div ref={leaderboardRef}>
                           <Leaderboard />
-                          <ForgotPassword />
                         </div>
                       </div>
                     </div>
@@ -69,6 +69,8 @@ function App() {
               }
             />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/forgotpassword" element={<ForgotPassword />} />
           </Routes>
         </header>
       </div>

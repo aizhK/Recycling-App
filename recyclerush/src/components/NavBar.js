@@ -4,6 +4,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 function NavBar({ onAbout, onBadges, onLeaderboard }) {
   return (
@@ -91,7 +92,7 @@ function NavBar({ onAbout, onBadges, onLeaderboard }) {
           >
             Leaderboard
           </Button>
-          <Button
+          <Button component={Link} to="/login"
             color="inherit"
             sx={{
               "&:hover": {

@@ -2,6 +2,7 @@ import { Box, Button, Typography, TextField, IconButton } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ArrowBackIcon from '@mui/icons-material/ArrowBackOutlined';
 import ForgotPasswordImg from '../assets/forgot-password.png';
+import { Link } from 'react-router-dom';
 
 const theme = createTheme({
   palette: {
@@ -108,7 +109,7 @@ const ForgotPassword = () => {
             Reset Password
           </Button>
           <Box sx={{ marginTop: '50px' }}>
-            <IconButton
+            <IconButton component={Link} to="/login" 
               sx={{
                 color: 'text.sub',
               }}
