@@ -11,6 +11,7 @@ import Leaderboard from "./components/Leaderboard";
 import ForgotPassword from "./components/ForgotPassword";
 import SignUp from "./components/SignUp";
 import Login from "./components/Login";
+import ScrollTop from "./components/ScrollToTop";
 
 function App() {
   const [isAuthPage, setIsAuthPage] = useState(false);
@@ -90,6 +91,7 @@ function App() {
             />
           </Routes>
         </header>
+        <ScrollTop />
       </div>
     </Router>
   );
