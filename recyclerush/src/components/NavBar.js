@@ -92,7 +92,9 @@ function NavBar({ onAbout, onBadges, onLeaderboard }) {
           >
             Leaderboard
           </Button>
-          <Button component={Link} to="/login"
+          <Button
+            component={Link}
+            to="/login"
             color="inherit"
             sx={{
               "&:hover": {

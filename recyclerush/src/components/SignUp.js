@@ -5,30 +5,37 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBackOutlined";
 import userprofile from "../assets/userprofile.png";
 import secure from "../assets/secure.png";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
-const theme = createTheme({
-  palette: {
-    background: {
-      main: "#F6F3E7",
-      secondary: "#FBF9F2",
-      last: "#EDE9DA",
-    },
-    text: {
-      main: "#000",
-      sub: "#626161",
-      third: "#C7683D",
-    },
-  },
-});
+function SignUp({ handleAuthPage }) {
+  useEffect(() => {
+    handleAuthPage(true);
 
-const SignUp = () => {
+    return () => {
+      handleAuthPage(false);
+    };
+  }, [handleAuthPage]);
+
+  const theme = createTheme({
+    palette: {
+      background: {
+        main: "#F6F3E7",
+        secondary: "#FBF9F2",
+        last: "#EDE9DA",
+      },
+      text: {
+        main: "#000",
+        sub: "#626161",
+        third: "#C7683D",
+      },
+    },
+  });
+
   return (
     <ThemeProvider theme={theme}>
       <Box
         sx={{
           backgroundColor: "background.main",
-          width: "100%",
-          minHeight: "100vh",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -53,9 +60,8 @@ const SignUp = () => {
               src={userprofile}
               alt="userprofile"
               style={{
-                width: "330px",
-                height: "330px",
-                marginTop: "50px",
+                width: "250px",
+                height: "250px",
               }}
             />
 
@@ -63,9 +69,9 @@ const SignUp = () => {
               src={secure}
               alt="secure"
               style={{
-                width: "310px",
-                height: "310px",
-                marginTop: "120px",
+                width: "250px",
+                height: "250px",
+                marginTop: "10%",
               }}
             />
           </Box>
@@ -73,21 +79,22 @@ const SignUp = () => {
           <Box
             sx={{
               backgroundColor: "background.secondary",
-              width: "585px",
-              height: "809px",
+              width: "440px",
+              height: "600px",
               flexShrink: "0",
               borderRadius: "50px",
               boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
               marginLeft: "160px",
+              justifyContent: "center",
             }}
           >
             <Typography
               sx={{
                 color: "text.main",
-                fontSize: "55px",
+                fontSize: "45px",
                 fontWeight: "bold",
                 textAlign: "center",
-                marginTop: "50px",
+                marginTop: "6%",
               }}
             >
               Get Started
@@ -95,15 +102,15 @@ const SignUp = () => {
             <Box
               sx={{
                 display: "flex",
+                justifyContent: "center",
               }}
             >
               <Typography
                 sx={{
                   color: "text.sub",
-                  fontSize: "16px",
+                  fontSize: "14px",
                   textAlign: "left",
                   marginTop: "10px",
-                  marginLeft: "25%",
                 }}
               >
                 Already Have An Account?
@@ -122,53 +129,66 @@ const SignUp = () => {
                 <Typography
                   sx={{
                     color: "text.third",
-                    fontSize: "16px",
+                    fontSize: "14px",
                     textAlign: "left",
                     marginTop: "4%",
-                    marginLeft: "13%",
+                    marginLeft: "10%",
                   }}
                 >
                   Login
                 </Typography>
               </IconButton>
             </Box>
-            <Box>
+            <Box
+              sx={{
+                justifyContent: "center",
+                textAlign: "center",
+              }}
+            >
               <TextField
                 label="First Name"
+                required
                 variant="outlined"
+                size="small"
                 sx={{
-                  width: "300px",
-                  marginLeft: "25%",
-                  marginTop: "10%",
+                  width: "230px",
+                  marginTop: "5%",
                   backgroundColor: "background.last",
                 }}
               />
               <TextField
                 label="Email Address"
+                required
                 variant="outlined"
+                size="small"
                 sx={{
-                  width: "300px",
-                  marginLeft: "25%",
+                  width: "230px",
                   marginTop: "7%",
                   backgroundColor: "background.last",
                 }}
               />
               <TextField
                 label="Password"
+                required
+                type="password"
+                autoComplete="current-password"
                 variant="outlined"
+                size="small"
                 sx={{
-                  width: "300px",
-                  marginLeft: "25%",
+                  width: "230px",
                   marginTop: "7%",
                   backgroundColor: "background.last",
                 }}
               />
               <TextField
                 label="Confirm Password"
+                required
+                type="password"
+                autoComplete="current-password"
                 variant="outlined"
+                size="small"
                 sx={{
-                  width: "300px",
-                  marginLeft: "25%",
+                  width: "230px",
                   marginTop: "7%",
                   backgroundColor: "background.last",
                 }}
@@ -176,17 +196,18 @@ const SignUp = () => {
               <Button
                 sx={{
                   backgroundColor: "rgba(237, 233, 218, 0.70)",
-                  width: "300px",
-                  height: "66px",
-                  borderRadius: "25px",
-                  marginLeft: "25%",
-                  marginTop: "10%",
+                  width: "220px",
+                  height: "40px",
+                  borderRadius: "12px",
+                  justifyContent: "center",
+                  textAlign: "center",
+                  marginTop: "8%",
                 }}
               >
                 <Typography
                   sx={{
                     color: "text.main",
-                    fontSize: "24px",
+                    fontSize: "18px",
                     textAlign: "center",
                     margin: "auto",
                     fontWeight: "700",
@@ -196,7 +217,12 @@ const SignUp = () => {
                   Register
                 </Typography>
               </Button>
-              <Box sx={{ marginTop: "50px", textAlign: 'center' }}>
+              <Box
+                sx={{
+                  marginTop: "9%",
+                  textAlign: "center",
+                }}
+              >
                 <IconButton
                   component={Link}
                   to="/"
@@ -221,6 +247,6 @@ const SignUp = () => {
       </Box>
     </ThemeProvider>
   );
-};
+}
 
 export default SignUp;

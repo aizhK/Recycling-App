@@ -1,4 +1,4 @@
-import React, { createRef } from "react";
+import React, { createRef, useState } from "react";
 import "./App.css";
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import NavBar from "./components/NavBar";
@@ -13,6 +13,12 @@ import SignUp from "./components/SignUp";
 import Login from "./components/Login";
 
 function App() {
+  const [isAuthPage, setIsAuthPage] = useState(false);
+
+  const handleAuthPage = (authPage) => {
+    setIsAuthPage(authPage);
+  };
+
   const learnMoreRef = createRef();
 
   const scrollToLearnMore = () => {
@@ -41,11 +47,13 @@ function App() {
     <Router>
       <div className="App">
         <header className="App-header">
-          <NavBar
-            onAbout={scrollToAbout}
-            onBadges={scrollToBadges}
-            onLeaderboard={scrollToLeaderboard}
-          />
+          {!isAuthPage && (
+            <NavBar
+              onAbout={scrollToAbout}
+              onBadges={scrollToBadges}
+              onLeaderboard={scrollToLeaderboard}
+            />
+          )}
           <Routes>
             <Route
               path="/"
@@ -68,9 +76,18 @@ function App() {
                 </>
               }
             />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/forgotpassword" element={<ForgotPassword />} />
+            <Route
+              path="/signup"
+              element={<SignUp handleAuthPage={handleAuthPage} />}
+            />
+            <Route
+              path="/login"
+              element={<Login handleAuthPage={handleAuthPage} />}
+            />
+            <Route
+              path="/forgotpassword"
+              element={<ForgotPassword handleAuthPage={handleAuthPage} />}
+            />
           </Routes>
         </header>
       </div>

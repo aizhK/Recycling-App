@@ -5,30 +5,37 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBackOutlined";
 import userprofile from "../assets/userprofile.png";
 import secure from "../assets/secure.png";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
-const theme = createTheme({
-  palette: {
-    background: {
-      main: "#F6F3E7",
-      secondary: "#FBF9F2",
-      last: "#EDE9DA",
-    },
-    text: {
-      main: "#000",
-      sub: "#626161",
-      third: "#C7683D",
-    },
-  },
-});
+function Login({ handleAuthPage }) {
+  useEffect(() => {
+    handleAuthPage(true);
 
-const Login = () => {
+    return () => {
+      handleAuthPage(false);
+    };
+  }, [handleAuthPage]);
+
+  const theme = createTheme({
+    palette: {
+      background: {
+        main: "#F6F3E7",
+        secondary: "#FBF9F2",
+        last: "#EDE9DA",
+      },
+      text: {
+        main: "#000",
+        sub: "#626161",
+        third: "#C7683D",
+      },
+    },
+  });
+
   return (
     <ThemeProvider theme={theme}>
       <Box
         sx={{
           backgroundColor: "background.main",
-          width: "100%",
-          minHeight: "100vh",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -53,9 +60,8 @@ const Login = () => {
               src={userprofile}
               alt="userprofile"
               style={{
-                width: "330px",
-                height: "330px",
-                marginTop: "50px",
+                width: "250px",
+                height: "250px",
               }}
             />
 
@@ -63,9 +69,9 @@ const Login = () => {
               src={secure}
               alt="secure"
               style={{
-                width: "310px",
-                height: "310px",
-                marginTop: "120px",
+                width: "250px",
+                height: "250px",
+                marginTop: "10%",
               }}
             />
           </Box>
@@ -73,18 +79,19 @@ const Login = () => {
           <Box
             sx={{
               backgroundColor: "background.secondary",
-              width: "585px",
-              height: "714px",
+              width: "440px",
+              height: "570px",
               flexShrink: "0",
               borderRadius: "50px",
               boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
               marginLeft: "160px",
+              justifyContent: "center",
             }}
           >
             <Typography
               sx={{
                 color: "text.main",
-                fontSize: "55px",
+                fontSize: "45px",
                 fontWeight: "bold",
                 textAlign: "center",
                 marginTop: "50px",
@@ -95,20 +102,22 @@ const Login = () => {
             <Box
               sx={{
                 display: "flex",
+                justifyContent: "center",
               }}
             >
               <Typography
                 sx={{
                   color: "text.sub",
-                  fontSize: "16px",
+                  fontSize: "14px",
                   textAlign: "left",
                   marginTop: "10px",
-                  marginLeft: "25%",
                 }}
               >
                 Don't Have An Account?
               </Typography>
-              <IconButton component={Link} to="/signup"
+              <IconButton
+                component={Link}
+                to="/signup"
                 aria-label="create"
                 sx={{
                   color: "text.third",
@@ -120,7 +129,7 @@ const Login = () => {
                 <Typography
                   sx={{
                     color: "text.third",
-                    fontSize: "16px",
+                    fontSize: "14px",
                     textAlign: "left",
                     marginTop: "2%",
                   }}
@@ -129,60 +138,70 @@ const Login = () => {
                 </Typography>
               </IconButton>
             </Box>
-            <Box>
+            <Box
+              sx={{
+                justifyContent: "center",
+                textAlign: "center",
+              }}
+            >
               <TextField
                 label="Email Address"
+                required
                 variant="outlined"
                 sx={{
-                  width: "300px",
-                  marginLeft: "25%",
+                  width: "250px",
                   marginTop: "7%",
                   backgroundColor: "background.last",
                 }}
               />
               <TextField
                 label="Password"
+                required
                 variant="outlined"
+                type="password"
+                autoComplete="current-password"
                 sx={{
-                  width: "300px",
-                  marginLeft: "25%",
+                  width: "250px",
                   marginTop: "7%",
                   backgroundColor: "background.last",
                 }}
               />
-              <Button component={Link} to="/forgotpassword"
-                variant="text"
+              <Box
                 sx={{
-                  float: "right",
-                  marginTop: "5%",
-                  marginRight: "22%",
+                  justifyContent: "flex-end",
+                  display: "flex",
+                  marginTop: "4%",
+                  marginRight: "20%",
                 }}
               >
-                <Typography
-                  sx={{
-                    fontSize: "16px",
-                    color: "#626161",
-                    fontWeight: "700",
-                    textTransform: "none",
-                  }}
-                >
-                  Forgot Password?
-                </Typography>
-              </Button>
+                <Button component={Link} to="/forgotpassword" variant="text">
+                  <Typography
+                    sx={{
+                      fontSize: "14px",
+                      color: "#626161",
+                      fontWeight: "700",
+                      textTransform: "none",
+                    }}
+                  >
+                    Forgot Password?
+                  </Typography>
+                </Button>
+              </Box>
               <Button
                 sx={{
                   backgroundColor: "rgba(237, 233, 218, 0.70)",
-                  width: "300px",
-                  height: "66px",
-                  borderRadius: "25px",
-                  marginLeft: "25%",
-                  marginTop: "10%",
+                  width: "250px",
+                  height: "55px",
+                  borderRadius: "12px",
+                  justifyContent: "center",
+                  textAlign: "center",
+                  marginTop: "4%",
                 }}
               >
                 <Typography
                   sx={{
                     color: "text.main",
-                    fontSize: "24px",
+                    fontSize: "22px",
                     textAlign: "center",
                     margin: "auto",
                     fontWeight: "700",
@@ -192,7 +211,12 @@ const Login = () => {
                   Login
                 </Typography>
               </Button>
-              <Box sx={{ marginTop: "50px", textAlign: 'center' }}>
+              <Box
+                sx={{
+                  marginTop: "8%",
+                  textAlign: "center",
+                }}
+              >
                 <IconButton
                   component={Link}
                   to="/"
@@ -217,6 +241,6 @@ const Login = () => {
       </Box>
     </ThemeProvider>
   );
-};
+}
 
 export default Login;
