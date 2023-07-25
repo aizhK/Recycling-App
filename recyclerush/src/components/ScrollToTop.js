@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 import { Box, Fab } from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
-function ScrollTop() {
+function ScrollTop({isDrawerOpen}) {
   const [isVisible, setIsVisible] = useState(false);
 
   const toggleVisibility = () => {
-    if (window.pageYOffset > 300) {
+    if (window.scrollY > 300) {
       setIsVisible(true);
     } else {
       setIsVisible(false);
@@ -34,7 +34,7 @@ function ScrollTop() {
         zIndex: 'tooltip',
       }}
     >
-      {isVisible && 
+      {isVisible && !isDrawerOpen &&
         <Fab onClick={scrollToTop}
             sx={{
                 backgroundColor: '#C7683D',

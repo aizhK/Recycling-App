@@ -15,6 +15,7 @@ import ScrollTop from "./components/ScrollToTop";
 
 function App() {
   const [isAuthPage, setIsAuthPage] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const handleAuthPage = (authPage) => {
     setIsAuthPage(authPage);
@@ -53,6 +54,7 @@ function App() {
               onAbout={scrollToAbout}
               onBadges={scrollToBadges}
               onLeaderboard={scrollToLeaderboard}
+              setIsDrawerOpen={setIsDrawerOpen}
             />
           )}
           <Routes>
@@ -91,7 +93,7 @@ function App() {
             />
           </Routes>
         </header>
-        <ScrollTop />
+        <ScrollTop isDrawerOpen={isDrawerOpen} />
       </div>
     </Router>
   );
