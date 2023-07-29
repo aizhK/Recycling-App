@@ -12,6 +12,7 @@ import ForgotPassword from "./components/ForgotPassword";
 import SignUp from "./components/SignUp";
 import Login from "./components/Login";
 import ScrollTop from "./components/ScrollToTop";
+import Dashboard from "./dashboard/Dashboard"
 
 function App() {
   const [isAuthPage, setIsAuthPage] = useState(false);
@@ -94,6 +95,7 @@ function App() {
           </Routes>
         </header>
         <ScrollTop isDrawerOpen={isDrawerOpen} />
+        <Dashboard />
       </div>
     </Router>
   );
