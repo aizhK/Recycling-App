@@ -34,7 +34,7 @@ const Sidebar = ({ open }) => {
         variant="h6"
         component="div"
         sx={{
-          marginTop: "8%",
+          marginTop: "16%",
           marginLeft: "8%",
           textAlign: "left",
           fontWeight: "bold",

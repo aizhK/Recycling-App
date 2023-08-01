@@ -25,7 +25,7 @@ const CoreValues = () => {
       <Box
         sx={{
           paddingTop: '130px',
-          width: '100%',
+          width: '100vw',
           margin: 'auto',
           display: 'flex',
           justifyContent: 'space-between',

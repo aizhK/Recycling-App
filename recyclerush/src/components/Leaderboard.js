@@ -29,7 +29,7 @@ const Leaderboard = () => {
     <ThemeProvider theme={theme}>
       <Box
         sx={{
-          width: '100%',
+          width: '100vw',
           height: '633px',
           backgroundColor: 'background.secondary',
           position: 'relative',

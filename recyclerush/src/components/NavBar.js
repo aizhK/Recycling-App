@@ -57,7 +57,7 @@ function NavBar({ onAbout, onBadges, onLeaderboard, setIsDrawerOpen }) {
     <Box
       sx={{
         flexGrow: 1,
-        width: "100%",
+        width: "100vw",
         height: "inherit",
         position: "sticky",
         top: 0,
