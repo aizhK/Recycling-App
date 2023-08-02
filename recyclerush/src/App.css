@@ -9,11 +9,6 @@
   color: white;
 }
 
-.recyclecan {
-  @media (max-width: 1300px) {
-    display: none;
-  }
-}
 
 @keyframes App-logo-spin {
   from {
@@ -22,4 +17,30 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+@media (max-width: 1300px) {
+  .recyclecan {
+    display: none;
+  }
+  .recycleAbout {
+    display: none;
+  }
+  .reuse {
+    display: none;
+  }
+  .friendly {
+    display: none;
+  } 
 }

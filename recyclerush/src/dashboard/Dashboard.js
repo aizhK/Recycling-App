@@ -361,8 +361,6 @@ const Dashboard = () => {
                   Amount of Participants:
                 </Typography>
               </Box>
-
-              {/* Drop-down list */}
             </Box>
           </Box>
         </Box>
