@@ -64,7 +64,7 @@ function ForgotPassword({ handleAuthPage }) {
             sx={{
               marginTop: "3%",
               color: "text.third",
-              fontSize: "32px",
+              fontSize: { xs: "28px", sm: "30px", md: "32px", lg: "32px" },
               textTransform: "none",
               fontWeight: "600",
             }}
@@ -74,7 +74,7 @@ function ForgotPassword({ handleAuthPage }) {
           <Typography
             sx={{
               marginTop: "2%",
-              fontSize: "16px",
+              fontSize: { xs: "15px", sm: "15px", md: "16px", lg: "16px" },
               textAlign: "center",
               color: "text.sub",
             }}
@@ -110,14 +110,18 @@ function ForgotPassword({ handleAuthPage }) {
               width: "100%", // Adjust the width to fit the container
               maxWidth: "300px", // Set a maximum width for smaller screens
               boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
-              marginTop: "40px",
-              fontSize: "16px",
+              marginTop: { xs: "34px", sm: "36px", md: "40px", lg: "40px" },
+              fontSize: { xs: "15px", sm: "15px", md: "16px", lg: "16px" },
               textTransform: "none",
             }}
           >
             Reset Password
           </Button>
-          <Box sx={{ marginTop: "50px" }}>
+          <Box
+            sx={{
+              marginTop: { xs: "40px", sm: "46px", md: "50px", lg: "50px" },
+            }}
+          >
             <IconButton
               component={Link}
               to="/login"

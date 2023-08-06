@@ -12,7 +12,8 @@ import ForgotPassword from "./components/ForgotPassword";
 import SignUp from "./components/SignUp";
 import Login from "./components/Login";
 import ScrollTop from "./components/ScrollToTop";
-import Dashboard from "./dashboard/Dashboard"
+import Dashboard from "./dashboard/Dashboard";
+import LeaderboardDash from "./dashboard/LeaderboardDash";
 
 function App() {
   const [isAuthPage, setIsAuthPage] = useState(false);
@@ -49,6 +50,7 @@ function App() {
   return (
     <Router>
       <div className="App">
+        
         <header className="App-header">
           {!isAuthPage && (
             <NavBar
@@ -92,6 +94,7 @@ function App() {
               path="/forgotpassword"
               element={<ForgotPassword handleAuthPage={handleAuthPage} />}
             />
+            <Route path="/leaderboard" element={<LeaderboardDash />} />
           </Routes>
         </header>
         <ScrollTop isDrawerOpen={isDrawerOpen} />

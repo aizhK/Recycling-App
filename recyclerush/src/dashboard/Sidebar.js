@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
@@ -11,6 +12,13 @@ import Logout from "@mui/icons-material/LogoutOutlined";
 const drawerWidth = 240;
 
 const Sidebar = ({ open }) => {
+  const navigate = useNavigate();
+
+  const goToLeaderboard = () => {
+    alert("Navigating to Leaderboard");
+    navigate("/leaderboard");
+  };
+
   return (
     <Drawer
       variant="persistent"
@@ -103,6 +111,7 @@ const Sidebar = ({ open }) => {
       </Typography>
 
       <Button
+        onClick={goToLeaderboard}
         variant="contained"
         startIcon={<Leaderboard />}
         sx={{

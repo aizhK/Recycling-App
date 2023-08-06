@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Reset from "@mui/icons-material/RestartAlt";
-import Done from '@mui/icons-material/Done';
+import Done from "@mui/icons-material/Done";
 import Sidebar from "./Sidebar";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider, useTheme } from "@mui/material/styles";
@@ -106,25 +106,10 @@ const Dashboard = () => {
       >
         <Sidebar open={open} />
 
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          onClick={() => setOpen(!open)}
-          edge="start"
-          sx={{
-            position: "fixed",
-            marginLeft: "0.5%",
-            top: "2%",
-            left: `${open ? drawerWidth : 0}px`,
-            transition: "left .3s",
-          }}
-        >
-          <MenuIcon />
-        </IconButton>
-
         <Box
           component="main"
           sx={{
+            position: "relative", 
             flexGrow: 1,
             height: "100vh",
             display: "flex",
@@ -135,6 +120,22 @@ const Dashboard = () => {
             marginLeft: `${open ? drawerWidth / 8 : -drawerWidth / 1}px`,
           }}
         >
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={() => setOpen(!open)}
+            edge="start"
+            sx={{
+              position: "absolute", 
+              marginLeft: "0.5%",
+              top: "2%",
+              left: `${open ?  "-1.5rem" : "0rem"}`,
+              transition: "left .3s",
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
+
           <Box
             sx={{
               display: "flex",
@@ -268,10 +269,10 @@ const Dashboard = () => {
                       },
                       marginLeft: "10px",
                       backgroundColor: "#F6F3E7",
-                      color: "black"
+                      color: "black",
                     }}
                   >
-                    <Done /> 
+                    <Done />
                   </IconButton>
                 </Box>
               </Box>
