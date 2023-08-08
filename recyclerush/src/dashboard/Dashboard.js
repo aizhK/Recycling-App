@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import Reset from "@mui/icons-material/RestartAlt";
 import Done from "@mui/icons-material/Done";
-import Sidebar from "./Sidebar";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider, useTheme } from "@mui/material/styles";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -13,8 +11,17 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Chip from "@mui/material/Chip";
+import { useEffect } from "react";
 
 const customTheme = createTheme({
+  typography: {
+    h3: {
+      fontSize: "19px",
+    },
+    body1: {
+      fontSize: "16px",
+    },
+  },
   components: {
     MuiOutlinedInput: {
       styleOverrides: {
@@ -40,7 +47,6 @@ const customTheme = createTheme({
   },
 });
 
-const drawerWidth = 240;
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -78,8 +84,15 @@ function getStyles(item, specItem, theme) {
   };
 }
 
-const Dashboard = () => {
-  const [open, setOpen] = useState(false);
+const Dashboard = ({ handleDashboardPage }) => {
+  useEffect(() => {
+    handleDashboardPage(true);
+
+    return () => {
+      handleDashboardPage(false);
+    };
+  }, [handleDashboardPage]);
+
   const theme = useTheme();
   const [specItem, setItem] = useState([]);
 
@@ -100,193 +113,46 @@ const Dashboard = () => {
         sx={{
           backgroundColor: "#F6F3E7",
           display: "flex",
-          height: "100vh",
+          height: "90vh",
           width: "100vw",
         }}
       >
-        <Sidebar open={open} />
-
-        <Box
-          component="main"
+        <Box //main container
           sx={{
-            position: "relative", 
-            flexGrow: 1,
-            height: "100vh",
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            transition: "margin .3s",
-            marginLeft: `${open ? drawerWidth / 8 : -drawerWidth / 1}px`,
+            boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+            backgroundColor: "#EDE9DA",
+            borderRadius: "35px",
+            width: "95%",
+            height: "95%",
+            margin: "auto",
+            marginTop: "0",
           }}
         >
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={() => setOpen(!open)}
-            edge="start"
-            sx={{
-              position: "absolute", 
-              marginLeft: "0.5%",
-              top: "2%",
-              left: `${open ?  "-1.5rem" : "0rem"}`,
-              transition: "left .3s",
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
-
-          <Box
+          <Box //first row
             sx={{
               display: "flex",
               flexDirection: "row",
-              flexWrap: "wrap",
-              boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-              backgroundColor: "#EDE9DA",
-              borderRadius: "35px",
-              width: "95%",
-              height: "90%",
+              justifyContent: "flex-start",
+              alignItems: "flex-start",
+              marginTop: "5%",
+              height: "25%",
             }}
           >
             <Box
               sx={{
-                width: "25%",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <Box
-                sx={{
-                  height: "28.5%",
-                  width: "120%",
-                  marginTop: "12%",
-                  marginLeft: "40%",
-                  borderRadius: "20px",
-                  backgroundColor: "#F6F3E7",
-                  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-                  padding: "3%",
-                }}
-              >
-                <Typography
-                  variant="body1"
-                  component="div"
-                  sx={{
-                    marginLeft: "5%",
-                    marginTop: "8%",
-                    textAlign: "left",
-                    fontWeight: "bold",
-                    fontSize: "15px",
-                    color: "black",
-                  }}
-                >
-                  Your Total Amount of Points:
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  width: "110%",
-                  marginTop: "30%",
-                  marginLeft: "30%",
-                }}
-              >
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    width: "130%",
-                  }}
-                >
-                  <FormControl
-                    sx={{
-                      width: "100%",
-                      backgroundColor: "#F6F3E7",
-                    }}
-                    variant="outlined"
-                  >
-                    <InputLabel
-                      id="demo-multiple-chip-label"
-                      sx={{
-                        paddingLeft: "0.2rem",
-                        paddingRight: "0.5rem",
-                      }}
-                    >
-                      Select Recycled Item
-                    </InputLabel>
-                    <Select
-                      labelId="demo-multiple-chip-label"
-                      id="demo-multiple-chip"
-                      multiple
-                      value={specItem}
-                      onChange={handleChange}
-                      input={
-                        <OutlinedInput
-                          id="select-multiple-chip"
-                          label="Select Recycled Item"
-                        />
-                      }
-                      renderValue={(selected) => (
-                        <Box
-                          sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}
-                        >
-                          {selected.map((value) => (
-                            <Chip key={value} label={value} />
-                          ))}
-                        </Box>
-                      )}
-                      MenuProps={MenuProps}
-                    >
-                      {items.map((item) => (
-                        <MenuItem
-                          key={item}
-                          value={item}
-                          style={getStyles(item, specItem, theme)}
-                        >
-                          {item}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                  <IconButton
-                    color="inherit"
-                    onClick={handleReset}
-                    sx={{
-                      "&:hover": {
-                        color: "#C7683D",
-                      },
-                      marginLeft: "10px",
-                      backgroundColor: "#F6F3E7",
-                    }}
-                  >
-                    <Reset />
-                  </IconButton>
-                  <IconButton
-                    variant="text"
-                    sx={{
-                      "&:hover": {
-                        color: "#C7683D",
-                      },
-                      marginLeft: "10px",
-                      backgroundColor: "#F6F3E7",
-                      color: "black",
-                    }}
-                  >
-                    <Done />
-                  </IconButton>
-                </Box>
-              </Box>
-            </Box>
-            <Box
-              sx={{
-                height: "20%",
-                width: "25%",
-                marginLeft: "10%",
-                marginTop: "3%",
-                borderRadius: "20px",
+                //points box
+                borderRadius: "10px",
                 backgroundColor: "#F6F3E7",
                 boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                width: "30%",
+                height: "100%",
+                marginLeft: "2%",
+                marginRight: "2%",
                 padding: "3%",
+                paddingTop: "1%",
+                paddingLeft: "1%",
               }}
             >
               <Typography
@@ -295,74 +161,224 @@ const Dashboard = () => {
                 sx={{
                   textAlign: "left",
                   fontWeight: "bold",
-                  fontSize: "15px",
                   color: "black",
                 }}
               >
-                Your Position on the Leaderboard:
+                Your total amount of points:
               </Typography>
             </Box>
             <Box
               sx={{
+                //leaderboard box
+                borderRadius: "10px",
+                backgroundColor: "#F6F3E7",
+                boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                width: "30%",
+                height: "100%",
+                marginLeft: "2%",
+                marginRight: "2%",
+                paddingTop: "1%",
+                paddingLeft: "1%",
+              }}
+            >
+              <Typography
+                variant="body1"
+                component="div"
+                sx={{
+                  textAlign: "left",
+                  fontWeight: "bold",
+                  color: "black",
+                }}
+              >
+                Your position on the leaderboard:
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                //participants and highest points box
                 display: "flex",
                 flexDirection: "column",
+                justifyContent: "space-between",
+                width: "30%",
+                marginLeft: "2%",
+                marginRight: "2%",
+                height: "100%",
               }}
             >
               <Box
                 sx={{
-                  height: "10%",
-                  width: "150%",
-                  marginLeft: "15%",
-                  marginTop: "35%",
-                  borderRadius: "20px",
+                  //participants box
+                  borderRadius: "10px",
                   backgroundColor: "#F6F3E7",
                   boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-                  padding: "2%",
+                  height: "50%",
+                  paddingTop: "1%",
+                  paddingLeft: "1%",
+                  marginBottom: "2%",
+                  marginLeft: "2%",
+                  marginRight: "2%",
+                  padding: "3%",
                 }}
               >
                 <Typography
                   variant="body1"
                   component="div"
                   sx={{
-                    marginLeft: "3%",
-                    marginTop: "3%",
                     textAlign: "left",
                     fontWeight: "bold",
-                    fontSize: "13px",
                     color: "black",
                   }}
                 >
-                  Amount of Participants:
+                  Amount of participants:
                 </Typography>
               </Box>
               <Box
                 sx={{
-                  height: "10%",
-                  width: "150%",
-                  marginLeft: "15%",
-                  marginTop: "25%",
-                  borderRadius: "20px",
+                  //highest points box
+                  borderRadius: "10px",
                   backgroundColor: "#F6F3E7",
                   boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-                  padding: "2%",
+                  height: "50%",
+                  paddingTop: "1%",
+                  paddingLeft: "1%",
+                  marginTop: "2%",
+                  marginLeft: "2%",
+                  marginRight: "2%",
+                  padding: "3%",
                 }}
               >
                 <Typography
                   variant="body1"
                   component="div"
                   sx={{
-                    marginLeft: "3%",
-                    marginTop: "3%",
                     textAlign: "left",
                     fontWeight: "bold",
-                    fontSize: "13px",
                     color: "black",
                   }}
                 >
-                  Amount of Participants:
+                  Highest amount of points scored:
                 </Typography>
               </Box>
             </Box>
+          </Box>
+          <Box
+            sx={{
+              //second row
+              display: "flex",
+              marginTop: "5%",
+              marginLeft: "2%",
+              width: "45%",
+            }}
+          >
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{
+                textAlign: "left",
+                fontWeight: "bold",
+                color: "black",
+                fontSize: "1rem",
+              }}
+            >
+              From the dropdown list select the item(s) you've recycled and unlock
+              your eco-champion status:
+            </Typography>
+          </Box>
+          <Box //third row
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "flex-start",
+              alignItems: "flex-start",
+              marginTop: "2%",
+              marginLeft: "2%",
+            }}
+          >
+            <Box
+              sx={{
+                //dropdown list box
+                display: "flex",
+                flexDirection: "row",
+                width: "45%",
+              }}
+            >
+              <FormControl
+                sx={{
+                  width: "100%",
+                  backgroundColor: "#F6F3E7",
+                }}
+                variant="outlined"
+              >
+                <InputLabel
+                  id="demo-multiple-chip-label"
+                  sx={{
+                    paddingLeft: "0.2rem",
+                    paddingRight: "0.5rem",
+                  }}
+                >
+                  Select Recycled Item
+                </InputLabel>
+                <Select
+                  labelId="demo-multiple-chip-label"
+                  id="demo-multiple-chip"
+                  multiple
+                  value={specItem}
+                  onChange={handleChange}
+                  input={
+                    <OutlinedInput
+                      id="select-multiple-chip"
+                      label="Select Recycled Item"
+                    />
+                  }
+                  renderValue={(selected) => (
+                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                      {selected.map((value) => (
+                        <Chip key={value} label={value} />
+                      ))}
+                    </Box>
+                  )}
+                  MenuProps={MenuProps}
+                >
+                  {items.map((item) => (
+                    <MenuItem
+                      key={item}
+                      value={item}
+                      style={getStyles(item, specItem, theme)}
+                    >
+                      {item}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <IconButton
+                onClick={handleReset}
+                sx={{
+                  "&:hover": {
+                    color: "#C7683D",
+                  },
+                  marginLeft: "10px",
+                  backgroundColor: "#F6F3E7",
+                  color: "black",
+                }}
+              >
+                <Reset />
+              </IconButton>
+              <IconButton
+                variant="text"
+                sx={{
+                  "&:hover": {
+                    color: "#C7683D",
+                  },
+                  marginLeft: "10px",
+                  backgroundColor: "#F6F3E7",
+                  color: "black",
+                }}
+              >
+                <Done />
+              </IconButton>
+            </Box>
+            <Box //empty box
+            ></Box>
           </Box>
         </Box>
       </Box>

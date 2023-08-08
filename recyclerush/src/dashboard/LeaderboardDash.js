@@ -3,12 +3,20 @@ import Trophy from "@mui/icons-material/EmojiEvents";
 import { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import Sidebar from "./Sidebar";
+import { useEffect } from "react";
 
 const drawerWidth = 240;
 
-const Leaderboard = () => {
-  console.log('LeaderboardDash rendered');
+const Leaderboard = ({ handleDashboardPage }) => {
+  useEffect(() => {
+    handleDashboardPage(true);
+
+    return () => {
+      handleDashboardPage(false);
+    };
+  }, [handleDashboardPage]);
+
+  console.log("LeaderboardDash rendered");
   const [open, setOpen] = useState(false);
   // Dummy data
   const leaderboardData = [
@@ -35,8 +43,6 @@ const Leaderboard = () => {
         transition: "all 0.3s",
       }}
     >
-      <Sidebar open={open} />
-
       <Box
         component="main"
         sx={{
@@ -58,7 +64,7 @@ const Leaderboard = () => {
           sx={{
             position: "absolute",
             top: "2%",
-            left: `${open ?  "-0.5rem" : "0.8rem"}`,
+            left: `${open ? "-0.5rem" : "0.8rem"}`,
             transition: "left .3s ease-in-out",
             color: "black",
             zIndex: 1,
@@ -123,7 +129,7 @@ const Leaderboard = () => {
                     justifyContent: "space-between",
                     borderBottom: "1px solid #C7683D",
                     padding: "1rem 0",
-                    color: "black"
+                    color: "black",
                   }}
                 >
                   <Typography variant="h6">{name}</Typography>

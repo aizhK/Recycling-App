@@ -14,13 +14,20 @@ import Login from "./components/Login";
 import ScrollTop from "./components/ScrollToTop";
 import Dashboard from "./dashboard/Dashboard";
 import LeaderboardDash from "./dashboard/LeaderboardDash";
+import Sidebar from "./dashboard/Sidebar";
+import BadgesDash from "./dashboard/BadgesDash";
 
 function App() {
   const [isAuthPage, setIsAuthPage] = useState(false);
+  const [isDashboardPage, setIsDashboardPage] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isDrawerOpens, setIsDrawerOpens] = useState(false);
 
   const handleAuthPage = (authPage) => {
     setIsAuthPage(authPage);
+  };
+  const handleDashboardPage = (dashboardPage) => {
+    setIsDashboardPage(dashboardPage);
   };
 
   const learnMoreRef = createRef();
@@ -50,9 +57,8 @@ function App() {
   return (
     <Router>
       <div className="App">
-        
         <header className="App-header">
-          {!isAuthPage && (
+          {!isAuthPage && !isDashboardPage && (
             <NavBar
               onAbout={scrollToAbout}
               onBadges={scrollToBadges}
@@ -60,6 +66,7 @@ function App() {
               setIsDrawerOpen={setIsDrawerOpen}
             />
           )}
+          {isDashboardPage && <Sidebar setIsDrawerOpens={setIsDrawerOpens} />}
           <Routes>
             <Route
               path="/"
@@ -94,11 +101,26 @@ function App() {
               path="/forgotpassword"
               element={<ForgotPassword handleAuthPage={handleAuthPage} />}
             />
-            <Route path="/leaderboard" element={<LeaderboardDash />} />
+            <Route
+              path="/dashboard"
+              element={<Dashboard handleDashboardPage={handleDashboardPage} />}
+            />
+            <Route
+              path="/leaderboard"
+              element={
+                <LeaderboardDash handleDashboardPage={handleDashboardPage} />
+              }
+            />
+            <Route
+              path="/badges"
+              element={
+                <BadgesDash handleDashboardPage={handleDashboardPage} />
+              }
+            />
           </Routes>
         </header>
         <ScrollTop isDrawerOpen={isDrawerOpen} />
-        <Dashboard />
+        <ScrollTop isDrawerOpens={isDrawerOpens} />
       </div>
     </Router>
   );

@@ -198,6 +198,8 @@ function Login({ handleAuthPage }) {
               </Button>
             </Box>
             <Button
+              component={Link}
+              to="/dashboard"
               sx={{
                 backgroundColor: "rgba(237, 233, 218, 0.70)",
                 width: "250px",

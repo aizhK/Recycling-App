@@ -44,3 +44,11 @@ body, html {
     display: none;
   } 
 }
+@media (max-width: 900px) {
+  .userprofile {
+    display: none;
+  }
+  .secure {
+    display: none;
+  }
+}
