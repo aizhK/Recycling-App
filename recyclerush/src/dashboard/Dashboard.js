@@ -12,6 +12,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Chip from "@mui/material/Chip";
 import { useEffect } from "react";
+import { Hidden } from "@mui/material";
 
 const customTheme = createTheme({
   typography: {
@@ -20,6 +21,9 @@ const customTheme = createTheme({
     },
     body1: {
       fontSize: "16px",
+    },
+    body2: {
+      fontSize: "15px",
     },
   },
   components: {
@@ -115,6 +119,7 @@ const Dashboard = ({ handleDashboardPage }) => {
           display: "flex",
           height: "90vh",
           width: "100vw",
+          transition: "all 0.2s",
         }}
       >
         <Box //main container
@@ -128,6 +133,7 @@ const Dashboard = ({ handleDashboardPage }) => {
             height: "95%",
             margin: "auto",
             marginTop: "0",
+            transition: "all 0.2s ease-in-out",
           }}
         >
           <Box //first row
@@ -146,13 +152,12 @@ const Dashboard = ({ handleDashboardPage }) => {
                 borderRadius: "10px",
                 backgroundColor: "#F6F3E7",
                 boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-                width: "30%",
+                width: { xs: "50%", sm: "50%", md: "30%", lg: "30%" },
                 height: "100%",
                 marginLeft: "2%",
                 marginRight: "2%",
-                padding: "3%",
-                paddingTop: "1%",
-                paddingLeft: "1%",
+                paddingTop: "1.1%",
+                paddingLeft: "1.3%",
               }}
             >
               <Typography
@@ -173,12 +178,12 @@ const Dashboard = ({ handleDashboardPage }) => {
                 borderRadius: "10px",
                 backgroundColor: "#F6F3E7",
                 boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-                width: "30%",
+                width: { xs: "50%", sm: "50%", md: "30%", lg: "30%" },
                 height: "100%",
                 marginLeft: "2%",
                 marginRight: "2%",
-                paddingTop: "1%",
-                paddingLeft: "1%",
+                paddingTop: "1.1%",
+                paddingLeft: "1.3%",
               }}
             >
               <Typography
@@ -193,81 +198,79 @@ const Dashboard = ({ handleDashboardPage }) => {
                 Your position on the leaderboard:
               </Typography>
             </Box>
-            <Box
-              sx={{
-                //participants and highest points box
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                width: "30%",
-                marginLeft: "2%",
-                marginRight: "2%",
-                height: "100%",
-              }}
-            >
+            <Hidden mdDown>
               <Box
                 sx={{
-                  //participants box
-                  borderRadius: "10px",
-                  backgroundColor: "#F6F3E7",
-                  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-                  height: "50%",
-                  paddingTop: "1%",
-                  paddingLeft: "1%",
-                  marginBottom: "2%",
+                  //participants and highest points box
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  width: "30%",
                   marginLeft: "2%",
                   marginRight: "2%",
-                  padding: "3%",
+                  height: "100%",
                 }}
               >
-                <Typography
-                  variant="body1"
-                  component="div"
+                <Box
                   sx={{
-                    textAlign: "left",
-                    fontWeight: "bold",
-                    color: "black",
+                    //participants box
+                    borderRadius: "10px",
+                    backgroundColor: "#F6F3E7",
+                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                    height: "50%",
+                    marginBottom: "2%",
+                    marginLeft: "2%",
+                    marginRight: "2%",
+                    padding: "3%",
                   }}
                 >
-                  Amount of participants:
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  //highest points box
-                  borderRadius: "10px",
-                  backgroundColor: "#F6F3E7",
-                  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-                  height: "50%",
-                  paddingTop: "1%",
-                  paddingLeft: "1%",
-                  marginTop: "2%",
-                  marginLeft: "2%",
-                  marginRight: "2%",
-                  padding: "3%",
-                }}
-              >
-                <Typography
-                  variant="body1"
-                  component="div"
+                  <Typography
+                    variant="body2"
+                    component="div"
+                    sx={{
+                      textAlign: "left",
+                      fontWeight: "bold",
+                      color: "black",
+                    }}
+                  >
+                    Amount of participants:
+                  </Typography>
+                </Box>
+                <Box
                   sx={{
-                    textAlign: "left",
-                    fontWeight: "bold",
-                    color: "black",
+                    //highest points box
+                    borderRadius: "10px",
+                    backgroundColor: "#F6F3E7",
+                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                    height: "50%",
+                    marginTop: "2%",
+                    marginLeft: "2%",
+                    marginRight: "2%",
+                    padding: "3%",
                   }}
                 >
-                  Highest amount of points scored:
-                </Typography>
+                  <Typography
+                    variant="body2"
+                    component="div"
+                    sx={{
+                      textAlign: "left",
+                      fontWeight: "bold",
+                      color: "black",
+                    }}
+                  >
+                    Highest amount of points scored:
+                  </Typography>
+                </Box>
               </Box>
-            </Box>
+            </Hidden>
           </Box>
           <Box
             sx={{
               //second row
               display: "flex",
-              marginTop: "5%",
+              marginTop: { xs: "10%", sm: "5%", md: "5%", lg: "5%" },
               marginLeft: "2%",
-              width: "45%",
+              width: { xs: "90%", sm: "90%", md: "55%", lg: "45%" },
             }}
           >
             <Typography
@@ -280,8 +283,8 @@ const Dashboard = ({ handleDashboardPage }) => {
                 fontSize: "1rem",
               }}
             >
-              From the dropdown list select the item(s) you've recycled and unlock
-              your eco-champion status:
+              From the dropdown list select the item(s) you've recycled and
+              unlock your eco-champion status:
             </Typography>
           </Box>
           <Box //third row
@@ -290,7 +293,7 @@ const Dashboard = ({ handleDashboardPage }) => {
               flexDirection: "row",
               justifyContent: "flex-start",
               alignItems: "flex-start",
-              marginTop: "2%",
+              marginTop: { xs: "5%", sm: "3.5%", md: "2%", lg: "2%" },
               marginLeft: "2%",
             }}
           >
@@ -299,7 +302,7 @@ const Dashboard = ({ handleDashboardPage }) => {
                 //dropdown list box
                 display: "flex",
                 flexDirection: "row",
-                width: "45%",
+                width: { xs: "90%", sm: "90%", md: "45%", lg: "45%" },
               }}
             >
               <FormControl
@@ -357,8 +360,12 @@ const Dashboard = ({ handleDashboardPage }) => {
                     color: "#C7683D",
                   },
                   marginLeft: "10px",
+                  marginTop: "10px",
                   backgroundColor: "#F6F3E7",
                   color: "black",
+                  width: "40px", // Same width and height
+                  height: "40px",
+                  borderRadius: "50%", // Circular border radius
                 }}
               >
                 <Reset />
@@ -370,8 +377,12 @@ const Dashboard = ({ handleDashboardPage }) => {
                     color: "#C7683D",
                   },
                   marginLeft: "10px",
+                  marginTop: "10px",
                   backgroundColor: "#F6F3E7",
                   color: "black",
+                  width: "40px", // Same width and height
+                  height: "40px",
+                  borderRadius: "50%", // Circular border radius
                 }}
               >
                 <Done />

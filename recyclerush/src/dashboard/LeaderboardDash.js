@@ -1,11 +1,6 @@
 import { Box, Typography, Grid } from "@mui/material";
 import Trophy from "@mui/icons-material/EmojiEvents";
-import { useState } from "react";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import { useEffect } from "react";
-
-const drawerWidth = 240;
 
 const Leaderboard = ({ handleDashboardPage }) => {
   useEffect(() => {
@@ -17,7 +12,6 @@ const Leaderboard = ({ handleDashboardPage }) => {
   }, [handleDashboardPage]);
 
   console.log("LeaderboardDash rendered");
-  const [open, setOpen] = useState(false);
   // Dummy data
   const leaderboardData = [
     "Alice",
@@ -38,40 +32,27 @@ const Leaderboard = ({ handleDashboardPage }) => {
         display: "flex",
         flexDirection: "row",
         backgroundColor: "#F6F3E7",
-        height: "100vh",
+        height: "95vh",
         width: "100vw",
-        transition: "all 0.3s",
+        transition: "all 0.2s",
       }}
     >
       <Box
         component="main"
         sx={{
-          flexGrow: 1,
-          height: "100vh",
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          position: "relative",
-          marginLeft: `${open ? drawerWidth / 8 : -drawerWidth / 1}px`,
-          transition: "all 0.3s ease-in-out",
+          boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+          backgroundColor: "#EDE9DA",
+          borderRadius: "35px",
+          width: "95%",
+          height: "95%",
+          margin: "auto",
+          marginTop: "0",
+          marginBottom: "5%",
+          transition: "all 0.2s ease-in-out",
         }}
       >
-        <IconButton
-          aria-label="open drawer"
-          onClick={() => setOpen(!open)}
-          edge="start"
-          sx={{
-            position: "absolute",
-            top: "2%",
-            left: `${open ? "-0.5rem" : "0.8rem"}`,
-            transition: "left .3s ease-in-out",
-            color: "black",
-            zIndex: 1,
-          }}
-        >
-          <MenuIcon />
-        </IconButton>
         <Grid container justifyContent="center" alignItems="center">
           <Grid
             item
@@ -83,8 +64,6 @@ const Leaderboard = ({ handleDashboardPage }) => {
               marginTop: "2%",
               borderRadius: "35px",
               backgroundColor: "#EDE9DA",
-              boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-              padding: { xs: "5%", other: "2%" },
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
@@ -92,9 +71,9 @@ const Leaderboard = ({ handleDashboardPage }) => {
           >
             <Trophy
               sx={{
-                marginTop: "-2%",
-                fontSize: { xs: "4rem", other: "3rem" },
-                marginBottom: "2%",
+                marginTop: { xs: "5%", sm: "3%", md: "2%", lg: "1%"},
+                fontSize: { xs: "3.1rem", sm: "3.3rem", md: "3.4rem", lg: "4rem" },
+                marginBottom: { xs: "5%", sm: "3.5%", md: "2.5%", lg: "2%" },
                 color: "#5E5E5E",
               }}
             />
@@ -102,7 +81,8 @@ const Leaderboard = ({ handleDashboardPage }) => {
               variant="h4"
               sx={{
                 color: "#C7683D",
-                marginBottom: "2%",
+                marginBottom: { xs: "0;5%", sm: "1.2%", md: "1.5%", lg: "1.8%" },
+                fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem", lg: "3rem" },
                 fontWeight: "bold",
               }}
             >
@@ -110,8 +90,9 @@ const Leaderboard = ({ handleDashboardPage }) => {
             </Typography>
             <Box
               sx={{
-                width: "60%",
-                height: "25rem",
+                width: { xs: "85%", sm: "75%", md: "65%", lg: "60%"},
+                height: { xs: "28rem", sm: "27rem", md: "26rem", lg: "25rem" },
+                marginTop: { xs: "10%", sm: "4%", md: "2%", lg: "0%" },
                 borderRadius: "35px",
                 backgroundColor: "#F6F3E7",
                 paddingTop: "1.5%",
