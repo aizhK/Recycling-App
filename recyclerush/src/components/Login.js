@@ -6,8 +6,53 @@ import userprofile from "../assets/userprofile.png";
 import secure from "../assets/secure.png";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
+import { auth } from "../firebase";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 function Login({ handleAuthPage }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogin = (e) => {
+    e.preventDefault(); // Prevent default form submission
+
+    if (email.trim() === "" || password.trim() === "") {
+      console.error("Email and password are required");
+      setError("Email and password are required");
+      // Optionally, show an error message to the user
+      return;
+    }
+
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailPattern.test(email)) {
+      console.error("Invalid email format");
+      setError("Invalid email format"); // Set the error message
+      // Optionally, show an error message to the user
+      return;
+    }
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        navigate("/dashboard"); // Redirect to dashboard
+      })
+      .catch((error) => {
+        if (
+          error.code === "auth/user-not-found" ||
+          error.code === "auth/wrong-password"
+        ) {
+          console.error("Invalid email or password");
+          setError("Invalid email or password"); // Set the error message
+        } else {
+          console.error("Login failed:", error);
+          setError("Login failed"); // Handle other errors
+        }
+      });
+  };
+
   useEffect(() => {
     handleAuthPage(true);
 
@@ -149,80 +194,107 @@ function Login({ handleAuthPage }) {
               textAlign: "center",
             }}
           >
-            <TextField
-              label="Email Address"
-              required
-              variant="outlined"
-              sx={{
-                width: "250px",
-                marginTop: "7%",
-                backgroundColor: "background.last",
-              }}
-            />
-            <TextField
-              label="Password"
-              required
-              variant="outlined"
-              type="password"
-              autoComplete="current-password"
-              sx={{
-                width: "250px",
-                marginTop: "7%",
-                backgroundColor: "background.last",
-              }}
-            />
-            <Box
-              sx={{
-                justifyContent: "flex-end",
-                display: "flex",
-                marginTop: "4%",
-                marginRight: { xs: "13%", sm: "17.5%", md: "20%", lg: "20%" },
-              }}
-            >
-              <Button component={Link} to="/forgotpassword" variant="text">
+            <form onSubmit={handleLogin}>
+              <TextField
+                label="Email Address"
+                required
+                variant="outlined"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                sx={{
+                  width: "250px",
+                  marginTop: "7%",
+                  backgroundColor: "background.last",
+                }}
+              />
+              <TextField
+                label="Password"
+                required
+                variant="outlined"
+                type="password"
+                autoComplete="current-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                sx={{
+                  width: "250px",
+                  marginTop: "7%",
+                  backgroundColor: "background.last",
+                }}
+              />
+              <Box
+                sx={{
+                  justifyContent: "flex-end",
+                  display: "flex",
+                  marginTop: "4%",
+                  marginRight: { xs: "13%", sm: "17.5%", md: "20%", lg: "20%" },
+                }}
+              >
+                <Button component={Link} to="/forgotpassword" variant="text">
+                  <Typography
+                    sx={{
+                      fontSize: {
+                        xs: "14px",
+                        sm: "14px",
+                        md: "14px",
+                        lg: "14px",
+                      },
+                      color: "#626161",
+                      fontWeight: "700",
+                      textTransform: "none",
+                    }}
+                  >
+                    Forgot Password?
+                  </Typography>
+                </Button>
+              </Box>
+              {error && (
                 <Typography
                   sx={{
+                    color: "red", // Set the text color to red
                     fontSize: {
                       xs: "14px",
                       sm: "14px",
                       md: "14px",
                       lg: "14px",
                     },
-                    color: "#626161",
+                    textAlign: "center",
+                    marginTop: "10px",
+                  }}
+                >
+                  {error}
+                </Typography>
+              )}
+              <Button
+                type="submit"
+                sx={{
+                  backgroundColor: "rgba(237, 233, 218, 0.70)",
+                  width: "250px",
+                  height: "55px",
+                  borderRadius: "12px",
+                  justifyContent: "center",
+                  textAlign: "center",
+                  marginTop: "4%",
+                }}
+              >
+                <Typography
+                  sx={{
+                    color: "text.main",
+                    fontSize: {
+                      xs: "18px",
+                      sm: "20px",
+                      md: "22px",
+                      lg: "22px",
+                    },
+                    textAlign: "center",
+                    margin: "auto",
                     fontWeight: "700",
                     textTransform: "none",
                   }}
                 >
-                  Forgot Password?
+                  Login
                 </Typography>
               </Button>
-            </Box>
-            <Button
-              component={Link}
-              to="/dashboard"
-              sx={{
-                backgroundColor: "rgba(237, 233, 218, 0.70)",
-                width: "250px",
-                height: "55px",
-                borderRadius: "12px",
-                justifyContent: "center",
-                textAlign: "center",
-                marginTop: "4%",
-              }}
-            >
-              <Typography
-                sx={{
-                  color: "text.main",
-                  fontSize: { xs: "18px", sm: "20px", md: "22px", lg: "22px" },
-                  textAlign: "center",
-                  margin: "auto",
-                  fontWeight: "700",
-                  textTransform: "none",
-                }}
-              >
-                Login
-              </Typography>
-            </Button>
+            </form>
             <Box
               sx={{
                 marginTop: { xs: "4%", sm: "7%", md: "8%", lg: "8%" },

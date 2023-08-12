@@ -152,6 +152,7 @@ const Dashboard = ({ handleDashboardPage }) => {
                 borderRadius: "10px",
                 backgroundColor: "#F6F3E7",
                 boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                marginTop: { xs: "5%", sm: "0%", md: "0%", lg: "0%" },
                 width: { xs: "50%", sm: "50%", md: "30%", lg: "30%" },
                 height: "100%",
                 marginLeft: "2%",
@@ -167,6 +168,9 @@ const Dashboard = ({ handleDashboardPage }) => {
                   textAlign: "left",
                   fontWeight: "bold",
                   color: "black",
+                  fontSize: { xs: "13px", sm: "13px", md: "14px", lg: "16px"},
+                  marginTop: { xs: "5%", sm: "5%", md: "5%", lg: "2%" },
+                  marginLeft: { xs: "5%", sm: "5%", md: "5%", lg: "2%" },
                 }}
               >
                 Your total amount of points:
@@ -179,6 +183,7 @@ const Dashboard = ({ handleDashboardPage }) => {
                 backgroundColor: "#F6F3E7",
                 boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
                 width: { xs: "50%", sm: "50%", md: "30%", lg: "30%" },
+                marginTop: { xs: "5%", sm: "0%", md: "0%", lg: "0%" },
                 height: "100%",
                 marginLeft: "2%",
                 marginRight: "2%",
@@ -193,6 +198,9 @@ const Dashboard = ({ handleDashboardPage }) => {
                   textAlign: "left",
                   fontWeight: "bold",
                   color: "black",
+                  fontSize: { xs: "13px", sm: "13px", md: "14px", lg: "16px"},
+                  marginTop: { xs: "5%", sm: "5%", md: "5%", lg: "2%" },
+                  marginLeft: { xs: "5%", sm: "5%", md: "5%", lg: "2%" },
                 }}
               >
                 Your position on the leaderboard:
@@ -280,7 +288,8 @@ const Dashboard = ({ handleDashboardPage }) => {
                 textAlign: "left",
                 fontWeight: "bold",
                 color: "black",
-                fontSize: "1rem",
+                fontSize: { xs: "0.9rem", sm: "0.9rem", md: "1rem", lg: "1rem"},
+                marginTop: { xs: "10%", sm: "3.5%", md: "2%", lg: "2%" },
               }}
             >
               From the dropdown list select the item(s) you've recycled and

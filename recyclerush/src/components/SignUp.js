@@ -5,9 +5,54 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBackOutlined";
 import userprofile from "../assets/userprofile.png";
 import secure from "../assets/secure.png";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { auth } from "../firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 function SignUp({ handleAuthPage }) {
+  const [firstName, setFirstName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const [signUpSuccess, setSignUpSuccess] = useState(false);
+
+  const handleSignup = (email, password) => {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        setSignUpSuccess(true); // Set sign-up success status
+      })
+      .catch((error) => {
+        console.error("Signup failed:", error);
+        setError("Signup failed"); // Set the error message
+      });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (email.trim() === "" || password.trim() === "") {
+      console.error("Email and password are required");
+      setError("Email and password are required");
+      return;
+    }
+
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailPattern.test(email)) {
+      console.error("Invalid email format");
+      setError("Invalid email format");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      console.error("Passwords do not match");
+      setError("Passwords do not match");
+      return;
+    }
+
+    handleSignup(email, password);
+  };
+
   useEffect(() => {
     handleAuthPage(true);
 
@@ -93,166 +138,269 @@ function SignUp({ handleAuthPage }) {
             marginTop: { xs: "0px", sm: "45px", md: "45px", lg: "45px" },
           }}
         >
-          <Typography
-            sx={{
-              color: "text.main",
-              fontSize: { xs: "35px", sm: "43px", md: "45px", lg: "45px" },
-              fontWeight: "bold",
-              textAlign: "center",
-              marginTop: { xs: "35px", sm: "30px", md: "50px", lg: "50px" },
-            }}
-          >
-            Get Started
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <Typography
-              sx={{
-                color: "text.sub",
-                fontSize: { xs: "15px", sm: "14px", md: "14px", lg: "14px" },
-                textAlign: "left",
-                marginTop: "10px",
-              }}
-            >
-              Already Have An Account?
-            </Typography>
-            <Button
-              component={Link}
-              startIcon={<LoginIcon />}
-              to="/login"
-              aria-label="login"
-              sx={{
-                color: "text.third",
-                size: { xs: "small", sm: "medium", md: "large", lg: "large" },
-                marginTop: "0.2rem",
-                marginLeft: "0.5%",
-              }}
-            >
+          {signUpSuccess ? (
+            <>
               <Typography
                 sx={{
-                  color: "text.third",
-                  fontSize: { xs: "15px", sm: "14px", md: "14px", lg: "14px" },
-                  marginTop: "0.1rem",
-                  textTransform: "none",
+                  marginTop: "3%",
+                  fontSize: { xs: "15px", sm: "15px", md: "16px", lg: "16px" },
+                  textAlign: "center",
+                  color: "text.sub",
                 }}
               >
-                Login
+                Sign-up successful! You can now log in to your account.
               </Typography>
-            </Button>
-          </Box>
-          <Box
-            sx={{
-              justifyContent: "center",
-              textAlign: "center",
-            }}
-          >
-            <TextField
-              label="First Name"
-              required
-              variant="outlined"
-              size="small"
-              sx={{
-                width: "230px",
-                marginTop: "5%",
-                backgroundColor: "background.last",
-              }}
-            />
-            <TextField
-              label="Email Address"
-              required
-              variant="outlined"
-              size="small"
-              sx={{
-                width: "230px",
-                marginTop: "7%",
-                backgroundColor: "background.last",
-              }}
-            />
-            <TextField
-              label="Password"
-              required
-              type="password"
-              autoComplete="current-password"
-              variant="outlined"
-              size="small"
-              sx={{
-                width: "230px",
-                marginTop: "7%",
-                backgroundColor: "background.last",
-              }}
-            />
-            <TextField
-              label="Confirm Password"
-              required
-              type="password"
-              autoComplete="current-password"
-              variant="outlined"
-              size="small"
-              sx={{
-                width: "230px",
-                marginTop: "7%",
-                backgroundColor: "background.last",
-              }}
-            />
-            <Button
-              sx={{
-                backgroundColor: "rgba(237, 233, 218, 0.70)",
-                width: "230px",
-                height: "50px",
-                borderRadius: "12px",
-                justifyContent: "center",
-                textAlign: "center",
-                marginTop: "8%",
-              }}
-            >
+              <Box
+                sx={{
+                  justifyContent: "center",
+                  textAlign: "center",
+                }}
+              >
+                <Button
+                  component={Link}
+                  to="/login"
+                  sx={{
+                    backgroundColor: "rgba(237, 233, 218, 0.70)",
+                    width: "230px",
+                    height: "50px",
+                    borderRadius: "12px",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    marginTop: "8%",
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      color: "text.main",
+                      fontSize: {
+                        xs: "18px",
+                        sm: "20px",
+                        md: "22px",
+                        lg: "22px",
+                      },
+                      textAlign: "center",
+                      margin: "auto",
+                      fontWeight: "700",
+                      textTransform: "none",
+                    }}
+                  >
+                    Log In
+                  </Typography>
+                </Button>
+              </Box>
+            </>
+          ) : (
+            <>
               <Typography
                 sx={{
                   color: "text.main",
-                  fontSize: { xs: "18px", sm: "20px", md: "22px", lg: "22px" },
+                  fontSize: { xs: "35px", sm: "43px", md: "45px", lg: "45px" },
+                  fontWeight: "bold",
                   textAlign: "center",
-                  margin: "auto",
-                  fontWeight: "700",
-                  textTransform: "none",
+                  marginTop: { xs: "35px", sm: "30px", md: "50px", lg: "50px" },
                 }}
               >
-                Register
+                Get Started
               </Typography>
-            </Button>
-            <Box
-              sx={{
-                marginTop: { xs: "4%", sm: "4%", md: "6%", lg: "6%" },
-                textAlign: "center",
-              }}
-            >
-              <Button
-                component={Link}
-                startIcon={<ArrowBackIcon />}
-                to="/"
+              <Box
                 sx={{
-                  color: "text.sub",
-                  size: { xs: "small", sm: "medium", md: "large", lg: "large" },
+                  display: "flex",
+                  justifyContent: "center",
                 }}
               >
                 <Typography
                   sx={{
-                    fontSize: {
-                      xs: "13px",
-                      sm: "15px",
-                      md: "16px",
-                      lg: "16px",
-                    },
                     color: "text.sub",
-                    textTransform: "none",
+                    fontSize: {
+                      xs: "15px",
+                      sm: "14px",
+                      md: "14px",
+                      lg: "14px",
+                    },
+                    textAlign: "left",
+                    marginTop: "10px",
                   }}
                 >
-                  Return to Main Page
+                  Already Have An Account?
                 </Typography>
-              </Button>
-            </Box>
+                <Button
+                  component={Link}
+                  startIcon={<LoginIcon />}
+                  to="/login"
+                  aria-label="login"
+                  sx={{
+                    color: "text.third",
+                    size: {
+                      xs: "small",
+                      sm: "medium",
+                      md: "large",
+                      lg: "large",
+                    },
+                    marginTop: "0.2rem",
+                    marginLeft: "0.5%",
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      color: "text.third",
+                      fontSize: {
+                        xs: "15px",
+                        sm: "14px",
+                        md: "14px",
+                        lg: "14px",
+                      },
+                      marginTop: "0.1rem",
+                      textTransform: "none",
+                    }}
+                  >
+                    Login
+                  </Typography>
+                </Button>
+              </Box>
+              <Box
+                sx={{
+                  justifyContent: "center",
+                  textAlign: "center",
+                }}
+              >
+                <form onSubmit={handleSubmit}>
+                  <TextField
+                    label="First Name"
+                    required
+                    variant="outlined"
+                    size="small"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    sx={{
+                      width: "230px",
+                      marginTop: "5%",
+                      backgroundColor: "background.last",
+                    }}
+                  />
+                  <TextField
+                    label="Email Address"
+                    required
+                    variant="outlined"
+                    size="small"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    sx={{
+                      width: "230px",
+                      marginTop: "7%",
+                      backgroundColor: "background.last",
+                    }}
+                  />
+                  <TextField
+                    label="Password"
+                    required
+                    type="password"
+                    autoComplete="current-password"
+                    variant="outlined"
+                    size="small"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    sx={{
+                      width: "230px",
+                      marginTop: "7%",
+                      backgroundColor: "background.last",
+                    }}
+                  />
+                  <TextField
+                    label="Confirm Password"
+                    required
+                    type="password"
+                    autoComplete="current-password"
+                    variant="outlined"
+                    size="small"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    sx={{
+                      width: "230px",
+                      marginTop: "7%",
+                      backgroundColor: "background.last",
+                    }}
+                  />
+                  {error && (
+                    <Typography
+                      sx={{
+                        color: "red",
+                        fontSize: {
+                          xs: "14px",
+                          sm: "14px",
+                          md: "14px",
+                          lg: "14px",
+                        },
+                        textAlign: "center",
+                        marginTop: "10px",
+                      }}
+                    >
+                      {error}
+                    </Typography>
+                  )}
+                  <Button
+                    type="submit"
+                    sx={{
+                      backgroundColor: "rgba(237, 233, 218, 0.70)",
+                      width: "230px",
+                      height: "50px",
+                      borderRadius: "12px",
+                      justifyContent: "center",
+                      textAlign: "center",
+                      marginTop: "8%",
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        color: "text.main",
+                        fontSize: {
+                          xs: "18px",
+                          sm: "20px",
+                          md: "22px",
+                          lg: "22px",
+                        },
+                        textAlign: "center",
+                        margin: "auto",
+                        fontWeight: "700",
+                        textTransform: "none",
+                      }}
+                    >
+                      Sign Up
+                    </Typography>
+                  </Button>
+                </form>
+              </Box>
+            </>
+          )}
+          <Box
+            sx={{
+              marginTop: { xs: "4%", sm: "4%", md: "6%", lg: "6%" },
+              textAlign: "center",
+            }}
+          >
+            <Button
+              component={Link}
+              startIcon={<ArrowBackIcon />}
+              to="/"
+              sx={{
+                color: "text.sub",
+                size: { xs: "small", sm: "medium", md: "large", lg: "large" },
+              }}
+            >
+              <Typography
+                sx={{
+                  fontSize: {
+                    xs: "13px",
+                    sm: "15px",
+                    md: "16px",
+                    lg: "16px",
+                  },
+                  color: "text.sub",
+                  textTransform: "none",
+                }}
+              >
+                Return to Main Page
+              </Typography>
+            </Button>
           </Box>
         </Box>
       </Box>
