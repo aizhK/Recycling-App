@@ -1,10 +1,20 @@
 import { Box, Typography, Grid } from "@mui/material";
 import Trophy from "@mui/icons-material/EmojiEvents";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const Leaderboard = ({ handleDashboardPage }) => {
+  const [leaderboardData, setLeaderboardData] = useState([]);
   useEffect(() => {
     handleDashboardPage(true);
+
+    fetch("http://localhost:3001/leaderboard")
+      .then((response) => response.json())
+      .then((data) => {
+        setLeaderboardData(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching leaderboard data:", error);
+      });
 
     return () => {
       handleDashboardPage(false);
@@ -12,19 +22,6 @@ const Leaderboard = ({ handleDashboardPage }) => {
   }, [handleDashboardPage]);
 
   console.log("LeaderboardDash rendered");
-  // Dummy data
-  const leaderboardData = [
-    "Alice",
-    "Bob",
-    "Charlie",
-    "David",
-    "Eva",
-    "Alice",
-    "Bob",
-    "Charlie",
-    "David",
-    "Eva",
-  ];
 
   return (
     <Box
@@ -71,8 +68,13 @@ const Leaderboard = ({ handleDashboardPage }) => {
           >
             <Trophy
               sx={{
-                marginTop: { xs: "5%", sm: "3%", md: "2%", lg: "1%"},
-                fontSize: { xs: "3.1rem", sm: "3.3rem", md: "3.4rem", lg: "4rem" },
+                marginTop: { xs: "5%", sm: "3%", md: "2%", lg: "1%" },
+                fontSize: {
+                  xs: "3.1rem",
+                  sm: "3.3rem",
+                  md: "3.4rem",
+                  lg: "4rem",
+                },
                 marginBottom: { xs: "5%", sm: "3.5%", md: "2.5%", lg: "2%" },
                 color: "#5E5E5E",
               }}
@@ -81,7 +83,12 @@ const Leaderboard = ({ handleDashboardPage }) => {
               variant="h4"
               sx={{
                 color: "#C7683D",
-                marginBottom: { xs: "0;5%", sm: "1.2%", md: "1.5%", lg: "1.8%" },
+                marginBottom: {
+                  xs: "0;5%",
+                  sm: "1.2%",
+                  md: "1.5%",
+                  lg: "1.8%",
+                },
                 fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem", lg: "3rem" },
                 fontWeight: "bold",
               }}
@@ -90,7 +97,7 @@ const Leaderboard = ({ handleDashboardPage }) => {
             </Typography>
             <Box
               sx={{
-                width: { xs: "85%", sm: "75%", md: "65%", lg: "60%"},
+                width: { xs: "85%", sm: "75%", md: "65%", lg: "60%" },
                 height: { xs: "28rem", sm: "27rem", md: "26rem", lg: "25rem" },
                 marginTop: { xs: "10%", sm: "4%", md: "2%", lg: "0%" },
                 borderRadius: "35px",
@@ -102,7 +109,7 @@ const Leaderboard = ({ handleDashboardPage }) => {
                 overflowY: "scroll",
               }}
             >
-              {leaderboardData.map((name, index) => (
+              {leaderboardData.map((user, index) => (
                 <Box
                   key={index}
                   sx={{
@@ -113,8 +120,8 @@ const Leaderboard = ({ handleDashboardPage }) => {
                     color: "black",
                   }}
                 >
-                  <Typography variant="h6">{name}</Typography>
-                  <Typography variant="h6">{index + 1}</Typography>
+                  <Typography variant="h6">{user.email}</Typography>
+                  <Typography variant="h6">{user.points}</Typography>
                 </Box>
               ))}
             </Box>

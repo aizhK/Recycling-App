@@ -13,6 +13,7 @@ import Select from "@mui/material/Select";
 import Chip from "@mui/material/Chip";
 import { useEffect } from "react";
 import { Hidden } from "@mui/material";
+import { auth } from "../firebase";
 
 const customTheme = createTheme({
   typography: {
@@ -63,20 +64,20 @@ const MenuProps = {
 };
 
 const items = [
-  "Plastic Bottle (0.5L)",
-  "Plastic Bottle (1L)",
-  "Plastic Bag",
-  "Plastic Straw",
-  "Plastic Cup",
-  "Plastic Cutlery",
-  "Glass Bottle (0.5L)",
-  "Glass Bottle (1L)",
-  "Other Glassware",
-  "Aluminum Can (0.25L)",
-  "Aluminum Can (0.5L)",
-  "Paper Cup",
-  "Paper Bag",
-  "Paper",
+  { name: "Plastic Bottle (0.5L)", identifier: "plasticBottle" },
+  { name: "Plastic Bottle (1L)", identifier: "plasticBottle" },
+  { name: "Plastic Bag", identifier: "plasticBag" },
+  { name: "Plastic Straw", identifier: "plasticStraw" },
+  { name: "Plastic Cup", identifier: "plasticCup" },
+  { name: "Plastic Cutlery", identifier: "plasticCutlery" },
+  { name: "Glass Bottle (0.5L)", identifier: "glassBottle" },
+  { name: "Glass Bottle (1L)", identifier: "glassBottle" },
+  { name: "Other Glassware", identifier: "otherGlassware" },
+  { name: "Aluminum Can (0.25L)", identifier: "aluminumCan" },
+  { name: "Aluminum Can (0.5L)", identifier: "aluminumCan" },
+  { name: "Paper Cup", identifier: "paperCup" },
+  { name: "Paper Bag", identifier: "paperBag" },
+  { name: "Paper", identifier: "paper" },
 ];
 
 function getStyles(item, specItem, theme) {
@@ -92,6 +93,43 @@ const Dashboard = ({ handleDashboardPage }) => {
   useEffect(() => {
     handleDashboardPage(true);
 
+    const userId = auth.currentUser?.uid;
+
+    if (userId) {
+      fetch(`http://localhost:3001/points/${userId}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setUserPoints(data.points);
+        })
+        .catch((error) => {
+          console.error("Error fetching user points:", error);
+        });
+      fetch(`http://localhost:3001/leaderboard/${userId}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setUserRank(data.rank); // Assuming the server returns an object with a rank property
+        })
+        .catch((error) => {
+          console.error("Error fetching user rank:", error);
+        });
+      fetch("http://localhost:3001/participants")
+        .then((response) => response.json())
+        .then((data) => {
+          setTotalParticipants(data.totalParticipants);
+        })
+        .catch((error) => {
+          console.error("Error fetching total participants:", error);
+        });
+      fetch("http://localhost:3001/highest-points")
+        .then((response) => response.json())
+        .then((data) => {
+          setHighestPoints(data.highestPoints);
+        })
+        .catch((error) => {
+          console.error("Error fetching highest points:", error);
+        });
+    }
+
     return () => {
       handleDashboardPage(false);
     };
@@ -99,12 +137,40 @@ const Dashboard = ({ handleDashboardPage }) => {
 
   const theme = useTheme();
   const [specItem, setItem] = useState([]);
+  const [userPoints, setUserPoints] = useState(0);
+  const [userRank, setUserRank] = useState(null);
+  const [totalParticipants, setTotalParticipants] = useState(0);
+  const [highestPoints, setHighestPoints] = useState(0);
+
+  const handleRecycle = (item) => {
+    const userId = auth.currentUser?.uid; // Replace with the actual user ID from Firebase authentication
+    fetch(`http://localhost:3001/recycle/${userId}/${item}`, {
+      method: "POST",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setUserPoints(data.points); // Update the user's points in the state
+      });
+  };
 
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
     setItem(typeof value === "string" ? value.split(",") : value);
+  };
+
+  const handleDoneClick = () => {
+    // Call handleRecycle for each selected item
+    specItem.forEach((item) => {
+      const selectedItem = items.find((i) => i.name === item);
+      if (selectedItem) {
+        handleRecycle(selectedItem.identifier);
+      }
+    });
+
+    // Reset the selected items
+    setItem([]);
   };
 
   const handleReset = () => {
@@ -168,12 +234,26 @@ const Dashboard = ({ handleDashboardPage }) => {
                   textAlign: "left",
                   fontWeight: "bold",
                   color: "black",
-                  fontSize: { xs: "13px", sm: "13px", md: "14px", lg: "16px"},
+                  fontSize: { xs: "13px", sm: "13px", md: "14px", lg: "16px" },
                   marginTop: { xs: "5%", sm: "5%", md: "5%", lg: "2%" },
                   marginLeft: { xs: "5%", sm: "5%", md: "5%", lg: "2%" },
                 }}
               >
-                Your total amount of points:
+                Your total amount of points: 
+              </Typography>
+              <Typography
+                variant="h3"
+                component="div"
+                sx={{
+                  textAlign: "left",
+                  fontWeight: "bold",
+                  color: "#C7683D",
+                  fontSize: { xs: "25px", sm: "25px", md: "28px", lg: "30px" },
+                  marginTop: { xs: "8%", sm: "8%", md: "8%", lg: "7%" },
+                  marginLeft: { xs: "5%", sm: "5%", md: "5%", lg: "2%" },
+                }}
+              >
+                {userPoints}
               </Typography>
             </Box>
             <Box
@@ -198,12 +278,26 @@ const Dashboard = ({ handleDashboardPage }) => {
                   textAlign: "left",
                   fontWeight: "bold",
                   color: "black",
-                  fontSize: { xs: "13px", sm: "13px", md: "14px", lg: "16px"},
+                  fontSize: { xs: "13px", sm: "13px", md: "14px", lg: "16px" },
                   marginTop: { xs: "5%", sm: "5%", md: "5%", lg: "2%" },
                   marginLeft: { xs: "5%", sm: "5%", md: "5%", lg: "2%" },
                 }}
               >
                 Your position on the leaderboard:
+              </Typography>
+              <Typography
+                variant="h3"
+                component="div"
+                sx={{
+                  textAlign: "left",
+                  fontWeight: "bold",
+                  color: "#C7683D",
+                  fontSize: { xs: "25px", sm: "25px", md: "28px", lg: "30px" },
+                  marginTop: { xs: "8%", sm: "8%", md: "8%", lg: "7%" },
+                  marginLeft: { xs: "5%", sm: "5%", md: "5%", lg: "2%" },
+                }}
+              >
+                {userRank}
               </Typography>
             </Box>
             <Hidden mdDown>
@@ -243,6 +337,18 @@ const Dashboard = ({ handleDashboardPage }) => {
                   >
                     Amount of participants:
                   </Typography>
+                  <Typography
+                    variant="body2"
+                    component="div"
+                    sx={{
+                      textAlign: "left",
+                      fontWeight: "bold",
+                      color: "#C7683D",
+                      fontSize: { md: "18px", lg: "18px" },
+                    }}
+                  >
+                    {totalParticipants}
+                  </Typography>
                 </Box>
                 <Box
                   sx={{
@@ -266,7 +372,19 @@ const Dashboard = ({ handleDashboardPage }) => {
                       color: "black",
                     }}
                   >
-                    Highest amount of points scored:
+                    Highest amount of points scored: 
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    component="div"
+                    sx={{
+                      textAlign: "left",
+                      fontWeight: "bold",
+                      color: "#C7683D",
+                      fontSize: { md: "18px", lg: "18px" },
+                    }}
+                  >
+                    {highestPoints}
                   </Typography>
                 </Box>
               </Box>
@@ -288,7 +406,12 @@ const Dashboard = ({ handleDashboardPage }) => {
                 textAlign: "left",
                 fontWeight: "bold",
                 color: "black",
-                fontSize: { xs: "0.9rem", sm: "0.9rem", md: "1rem", lg: "1rem"},
+                fontSize: {
+                  xs: "0.9rem",
+                  sm: "0.9rem",
+                  md: "1rem",
+                  lg: "1rem",
+                },
                 marginTop: { xs: "10%", sm: "3.5%", md: "2%", lg: "2%" },
               }}
             >
@@ -353,11 +476,11 @@ const Dashboard = ({ handleDashboardPage }) => {
                 >
                   {items.map((item) => (
                     <MenuItem
-                      key={item}
-                      value={item}
-                      style={getStyles(item, specItem, theme)}
+                      key={item.name}
+                      value={item.name}
+                      style={getStyles(item.name, specItem, theme)}
                     >
-                      {item}
+                      {item.name}
                     </MenuItem>
                   ))}
                 </Select>
@@ -380,6 +503,7 @@ const Dashboard = ({ handleDashboardPage }) => {
                 <Reset />
               </IconButton>
               <IconButton
+                onClick={handleDoneClick}
                 variant="text"
                 sx={{
                   "&:hover": {

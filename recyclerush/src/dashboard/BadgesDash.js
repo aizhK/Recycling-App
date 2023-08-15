@@ -4,7 +4,8 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+import { auth } from "../firebase";
 
 const customTheme = createTheme({
   typography: {
@@ -52,8 +53,18 @@ const images = [
 ];
 
 const BadgesDash = ({ handleDashboardPage }) => {
+  const [badges, setBadges] = useState({});
   useEffect(() => {
     handleDashboardPage(true);
+    const userId = auth.currentUser?.uid; // Replace with the actual user ID
+    fetch(`http://localhost:3001/badges/${userId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setBadges(data.badges);
+      })
+      .catch((error) => {
+        console.error("Error fetching badges:", error);
+      });
 
     return () => {
       handleDashboardPage(false);
@@ -148,6 +159,7 @@ const BadgesDash = ({ handleDashboardPage }) => {
                       justifyContent: "center",
                       alignItems: "center",
                       marginBottom: "2%",
+                      opacity: badges && badges[item.text] ? 1 : 0.3, // Dim the badge if not earned
                     }}
                   >
                     <Typography
