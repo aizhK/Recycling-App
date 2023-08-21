@@ -15,11 +15,10 @@ function ForgotPassword({ handleAuthPage }) {
   const handleForgotPassword = (email) => {
     sendPasswordResetEmail(auth, email)
       .then(() => {
-        setEmailSent(true); // Set emailSent to true
+        setEmailSent(true);
       })
       .catch((error) => {
         console.error("Password reset failed:", error);
-        // Optionally, show an error message to the user
       });
   };
 
@@ -61,7 +60,7 @@ function ForgotPassword({ handleAuthPage }) {
         <Box
           sx={{
             width: "90%",
-            maxWidth: "500px", // Set a maximum width for smaller screens
+            maxWidth: "500px",
             flexShrink: "0",
             justifyContent: "center",
             textAlign: "center",
@@ -127,8 +126,8 @@ function ForgotPassword({ handleAuthPage }) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   sx={{
-                    width: "100%", // Adjust the width to fit the container
-                    maxWidth: "300px", // Set a maximum width for smaller screens
+                    width: "100%",
+                    maxWidth: "300px",
                     backgroundColor: "background.secondary",
                   }}
                 />
@@ -140,9 +139,9 @@ function ForgotPassword({ handleAuthPage }) {
                   borderColor: "text.third",
                   color: "text.main",
                   borderRadius: "5px",
-                  height: "48px", // Use rem units for better responsiveness
-                  width: "100%", // Adjust the width to fit the container
-                  maxWidth: "300px", // Set a maximum width for smaller screens
+                  height: "48px",
+                  width: "100%", 
+                  maxWidth: "300px", 
                   boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
                   marginTop: { xs: "34px", sm: "36px", md: "40px", lg: "40px" },
                   fontSize: { xs: "15px", sm: "15px", md: "16px", lg: "16px" },

@@ -107,7 +107,7 @@ const Dashboard = ({ handleDashboardPage }) => {
       fetch(`http://localhost:3001/leaderboard/${userId}`)
         .then((response) => response.json())
         .then((data) => {
-          setUserRank(data.rank); // Assuming the server returns an object with a rank property
+          setUserRank(data.rank);
         })
         .catch((error) => {
           console.error("Error fetching user rank:", error);
@@ -143,13 +143,13 @@ const Dashboard = ({ handleDashboardPage }) => {
   const [highestPoints, setHighestPoints] = useState(0);
 
   const handleRecycle = (item) => {
-    const userId = auth.currentUser?.uid; // Replace with the actual user ID from Firebase authentication
+    const userId = auth.currentUser?.uid;
     fetch(`http://localhost:3001/recycle/${userId}/${item}`, {
       method: "POST",
     })
       .then((response) => response.json())
       .then((data) => {
-        setUserPoints(data.points); // Update the user's points in the state
+        setUserPoints(data.points); 
       });
   };
 
@@ -161,7 +161,6 @@ const Dashboard = ({ handleDashboardPage }) => {
   };
 
   const handleDoneClick = () => {
-    // Call handleRecycle for each selected item
     specItem.forEach((item) => {
       const selectedItem = items.find((i) => i.name === item);
       if (selectedItem) {
@@ -169,7 +168,6 @@ const Dashboard = ({ handleDashboardPage }) => {
       }
     });
 
-    // Reset the selected items
     setItem([]);
   };
 
@@ -188,7 +186,7 @@ const Dashboard = ({ handleDashboardPage }) => {
           transition: "all 0.2s",
         }}
       >
-        <Box //main container
+        <Box
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -202,7 +200,7 @@ const Dashboard = ({ handleDashboardPage }) => {
             transition: "all 0.2s ease-in-out",
           }}
         >
-          <Box //first row
+          <Box
             sx={{
               display: "flex",
               flexDirection: "row",
@@ -214,7 +212,6 @@ const Dashboard = ({ handleDashboardPage }) => {
           >
             <Box
               sx={{
-                //points box
                 borderRadius: "10px",
                 backgroundColor: "#F6F3E7",
                 boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
@@ -258,7 +255,6 @@ const Dashboard = ({ handleDashboardPage }) => {
             </Box>
             <Box
               sx={{
-                //leaderboard box
                 borderRadius: "10px",
                 backgroundColor: "#F6F3E7",
                 boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
@@ -303,7 +299,6 @@ const Dashboard = ({ handleDashboardPage }) => {
             <Hidden mdDown>
               <Box
                 sx={{
-                  //participants and highest points box
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "space-between",
@@ -315,7 +310,6 @@ const Dashboard = ({ handleDashboardPage }) => {
               >
                 <Box
                   sx={{
-                    //participants box
                     borderRadius: "10px",
                     backgroundColor: "#F6F3E7",
                     boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
@@ -352,7 +346,6 @@ const Dashboard = ({ handleDashboardPage }) => {
                 </Box>
                 <Box
                   sx={{
-                    //highest points box
                     borderRadius: "10px",
                     backgroundColor: "#F6F3E7",
                     boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
@@ -392,7 +385,6 @@ const Dashboard = ({ handleDashboardPage }) => {
           </Box>
           <Box
             sx={{
-              //second row
               display: "flex",
               marginTop: { xs: "10%", sm: "5%", md: "5%", lg: "5%" },
               marginLeft: "2%",
@@ -419,7 +411,7 @@ const Dashboard = ({ handleDashboardPage }) => {
               unlock your eco-champion status:
             </Typography>
           </Box>
-          <Box //third row
+          <Box
             sx={{
               display: "flex",
               flexDirection: "row",
@@ -431,7 +423,6 @@ const Dashboard = ({ handleDashboardPage }) => {
           >
             <Box
               sx={{
-                //dropdown list box
                 display: "flex",
                 flexDirection: "row",
                 width: { xs: "90%", sm: "90%", md: "45%", lg: "45%" },
@@ -495,9 +486,9 @@ const Dashboard = ({ handleDashboardPage }) => {
                   marginTop: "10px",
                   backgroundColor: "#F6F3E7",
                   color: "black",
-                  width: "40px", // Same width and height
+                  width: "40px",
                   height: "40px",
-                  borderRadius: "50%", // Circular border radius
+                  borderRadius: "50%",
                 }}
               >
                 <Reset />
@@ -513,15 +504,15 @@ const Dashboard = ({ handleDashboardPage }) => {
                   marginTop: "10px",
                   backgroundColor: "#F6F3E7",
                   color: "black",
-                  width: "40px", // Same width and height
+                  width: "40px",
                   height: "40px",
-                  borderRadius: "50%", // Circular border radius
+                  borderRadius: "50%",
                 }}
               >
                 <Done />
               </IconButton>
             </Box>
-            <Box //empty box
+            <Box
             ></Box>
           </Box>
         </Box>

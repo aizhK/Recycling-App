@@ -18,26 +18,24 @@ function Login({ handleAuthPage }) {
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
-    e.preventDefault(); // Prevent default form submission
+    e.preventDefault(); 
 
     if (email.trim() === "" || password.trim() === "") {
       console.error("Email and password are required");
       setError("Email and password are required");
-      // Optionally, show an error message to the user
       return;
     }
 
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailPattern.test(email)) {
       console.error("Invalid email format");
-      setError("Invalid email format"); // Set the error message
-      // Optionally, show an error message to the user
+      setError("Invalid email format"); 
       return;
     }
 
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        navigate("/dashboard"); // Redirect to dashboard
+        navigate("/dashboard"); 
       })
       .catch((error) => {
         if (
@@ -45,10 +43,10 @@ function Login({ handleAuthPage }) {
           error.code === "auth/wrong-password"
         ) {
           console.error("Invalid email or password");
-          setError("Invalid email or password"); // Set the error message
+          setError("Invalid email or password"); 
         } else {
           console.error("Login failed:", error);
-          setError("Login failed"); // Handle other errors
+          setError("Login failed"); 
         }
       });
   };
@@ -250,7 +248,7 @@ function Login({ handleAuthPage }) {
               {error && (
                 <Typography
                   sx={{
-                    color: "red", // Set the text color to red
+                    color: "red", 
                     fontSize: {
                       xs: "14px",
                       sm: "14px",

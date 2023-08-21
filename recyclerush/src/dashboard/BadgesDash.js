@@ -56,7 +56,7 @@ const BadgesDash = ({ handleDashboardPage }) => {
   const [badges, setBadges] = useState({});
   useEffect(() => {
     handleDashboardPage(true);
-    const userId = auth.currentUser?.uid; // Replace with the actual user ID
+    const userId = auth.currentUser?.uid; 
     fetch(`http://localhost:3001/badges/${userId}`)
       .then((response) => response.json())
       .then((data) => {
@@ -82,7 +82,7 @@ const BadgesDash = ({ handleDashboardPage }) => {
           transition: "all 0.2s",
         }}
       >
-        <Box //main container
+        <Box 
           sx={{
             alignItems: "center",
             display: "flex",
@@ -98,7 +98,7 @@ const BadgesDash = ({ handleDashboardPage }) => {
             transition: "all 0.2s ease-in-out",
           }}
         >
-          <Box //icon
+          <Box 
             sx={{
               marginTop: { xs: "12%", sm: "8%", md: "5%", lg: "2%" },
             }}
@@ -111,7 +111,7 @@ const BadgesDash = ({ handleDashboardPage }) => {
             />
           </Box>
 
-          <Box //header
+          <Box 
             sx={{
               marginTop: { xs: "4%", sm: "3%", md: "2%", lg: "2%" },
             }}
@@ -159,7 +159,7 @@ const BadgesDash = ({ handleDashboardPage }) => {
                       justifyContent: "center",
                       alignItems: "center",
                       marginBottom: "2%",
-                      opacity: badges && badges[item.text] ? 1 : 0.3, // Dim the badge if not earned
+                      opacity: badges && badges[item.text] ? 1 : 0.3, 
                     }}
                   >
                     <Typography

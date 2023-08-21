@@ -95,7 +95,6 @@ app.post("/recycle/:userId/:item", async (req, res) => {
       user.points += 1;
       user.paperItems = (user.paperItems || 0) + 1;
       break;
-    // Add more cases if needed
   }
   updateBadges(user);
   await writeData(data);
@@ -127,10 +126,8 @@ app.get("/leaderboard/:userId", async (req, res) => {
   const { userId } = req.params;
   const data = await readData();
 
-  // Sort the users by points in descending order
   const sortedUsers = [...data.users].sort((a, b) => b.points - a.points);
 
-  // Find the rank of the user
   const rank = sortedUsers.findIndex((user) => user.id === userId) + 1;
 
   if (rank) {
@@ -143,7 +140,6 @@ app.get("/leaderboard/:userId", async (req, res) => {
 app.get("/participants", async (req, res) => {
   const data = await readData();
 
-  // Get the total number of participants
   const totalParticipants = data.users.length;
 
   res.json({ totalParticipants });
@@ -152,7 +148,6 @@ app.get("/participants", async (req, res) => {
 app.get("/highest-points", async (req, res) => {
   const data = await readData();
 
-  // Find the user with the highest points
   const highestPointsUser = data.users.reduce(
     (max, user) => (user.points > max.points ? user : max),
     { points: 0 }

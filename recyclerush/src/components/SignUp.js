@@ -20,11 +20,11 @@ function SignUp({ handleAuthPage }) {
   const handleSignup = (email, password) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        setSignUpSuccess(true); // Set sign-up success status
+        setSignUpSuccess(true); 
       })
       .catch((error) => {
         console.error("Signup failed:", error);
-        setError("Signup failed"); // Set the error message
+        setError("Signup failed"); 
       });
   };
 
