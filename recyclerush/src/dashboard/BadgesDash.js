@@ -56,7 +56,7 @@ const BadgesDash = ({ handleDashboardPage }) => {
   const [badges, setBadges] = useState({});
   useEffect(() => {
     handleDashboardPage(true);
-    const userId = auth.currentUser?.uid; 
+    const userId = auth.currentUser?.uid;
     fetch(`http://localhost:3001/badges/${userId}`)
       .then((response) => response.json())
       .then((data) => {
@@ -82,7 +82,7 @@ const BadgesDash = ({ handleDashboardPage }) => {
           transition: "all 0.2s",
         }}
       >
-        <Box 
+        <Box
           sx={{
             alignItems: "center",
             display: "flex",
@@ -98,7 +98,7 @@ const BadgesDash = ({ handleDashboardPage }) => {
             transition: "all 0.2s ease-in-out",
           }}
         >
-          <Box 
+          <Box
             sx={{
               marginTop: { xs: "12%", sm: "8%", md: "5%", lg: "2%" },
             }}
@@ -111,7 +111,7 @@ const BadgesDash = ({ handleDashboardPage }) => {
             />
           </Box>
 
-          <Box 
+          <Box
             sx={{
               marginTop: { xs: "4%", sm: "3%", md: "2%", lg: "2%" },
             }}
@@ -146,45 +146,114 @@ const BadgesDash = ({ handleDashboardPage }) => {
                   <Box
                     sx={{
                       position: "relative",
-                      backgroundColor: "#ede9da",
+                      width: "10rem",
+                      height: "8rem",
+                      perspective: "1000px",
                       marginLeft: "auto",
                       marginRight: "auto",
-                      marginTop: "12%",
-                      padding: "16px",
-                      borderRadius: "8px",
-                      boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-                      height: "8rem",
-                      width: "10rem",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      marginBottom: "2%",
-                      opacity: badges && badges[item.text] ? 1 : 0.3, 
+                      marginTop: "10%",
                     }}
                   >
-                    <Typography
-                      variant="body1"
+                    <Box
                       sx={{
-                        fontSize: {
-                          xs: "0.6rem",
-                          sm: "0.6rem",
-                          md: "0.8rem",
-                          lg: "0.8rem",
+                        position: "relative",
+                        width: "100%",
+                        height: "100%",
+                        transformStyle: "preserve-3d",
+                        transition: "transform 0.5s",
+                        "&:hover": {
+                          transform: "rotateY(180deg)",
                         },
-                        marginBottom: "6rem",
-                        fontWeight: "600",
-                        color: "#C7683D",
-                        textAlign: "center",
-                        position: "absolute",
                       }}
                     >
-                      {item.text}
-                    </Typography>
-                    <img
-                      src={item.url}
-                      alt={`Item ${index + 1}`}
-                      style={{ width: "75%", height: "90%", marginTop: "15%" }}
-                    />
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          width: "100%",
+                          height: "100%",
+                          backfaceVisibility: "hidden",
+                          backgroundColor: "#ede9da",
+                          borderRadius: "8px",
+                          boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          opacity: badges && badges[item.text] ? 1 : 0.3,
+                        }}
+                      >
+                        <Typography
+                          variant="body1"
+                          sx={{
+                            fontSize: {
+                              xs: "0.6rem",
+                              sm: "0.6rem",
+                              md: "0.8rem",
+                              lg: "0.8rem",
+                            },
+                            marginTop: "8%",
+                            marginBottom: "5%",
+                            fontWeight: "600",
+                            color: "#C7683D",
+                            padding: "0 1rem",
+                          }}
+                        >
+                          {item.text}
+                        </Typography>
+                        <img
+                          src={item.url}
+                          alt={`Item ${index + 1}`}
+                          style={{
+                            width: "75%",
+                            height: "90%",
+                            marginBottom: "1rem",
+                            padding: "0 1.5rem",
+                          }}
+                        />
+                      </Box>
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          width: "100%",
+                          height: "100%",
+                          backfaceVisibility: "hidden",
+                          transform: "rotateY(180deg)",
+                          backgroundColor: "#ede9da",
+                          borderRadius: "8px",
+                          boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Typography
+                          variant="body1"
+                          sx={{
+                            fontSize: {
+                              xs: "0.6rem",
+                              sm: "0.6rem",
+                              md: "0.8rem",
+                              lg: "0.8rem",
+                            },
+                            marginTop: "8%",
+                            marginBottom: "5%",
+                            fontWeight: "600",
+                            color: "#C7683D",
+                            padding: "0 1rem",
+                          }}
+                        >
+                          {`To achieve the ${item.text} badge, you need to recycle ${item.text === "Recycle Rookie" ? "25 items" 
+                          : item.text === "Eco Explorer" ? "75 items"
+                          : item.text === "Sustainable Star" ? "120 items"
+                          : item.text === "Plastic Champion" ? "100 plastic items"
+                          : item.text === "Paper Wizard" ? "120 paper items"
+                          : item.text === "Can Crusher" ? "75 metal items"
+                          : item.text === "Glass Guru" ? "75 glass items"
+                          : item.text === "Planet Saver" ? "400 items"
+                          : "something else"}.`}
+                        </Typography>
+                      </Box>
+                    </Box>
                   </Box>
                 </Grid>
               ))}
